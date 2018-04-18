@@ -11,15 +11,15 @@ import random
 import math
 import numpy as np
 
-mu_a, mu_s, g, n, BINS = 1., 100., 0.9, 1.4, 100
+mu_a, mu_s, g, n, BINS = 20., 100., 0.9, 1.4, 100
 
-z1, z2, n1, n2 = 0., 0.01, 1., 1.
+z1, z2, n1, n2 = 0., 0.01, 1.4, 1.4
 
 rmax, zmax = 0.1, 0.08
 
 mu_t, TRESHOLD, CHANCE = mu_a + mu_s, 10. ** -4, 0.1
 
-dr, dz, N = rmax / BINS, zmax / BINS, 100000
+dr, dz, N = rmax / BINS, zmax / BINS, 1000000
 
 pathlengths = []
 
@@ -55,6 +55,8 @@ def main():
                     photon.weight = photon.weight / CHANCE
                     
                 else:
+                    
+                    pathlengths.append(photon.path)
                     
                     photon = Photon()
                     
@@ -199,7 +201,7 @@ def output(A, R):
         
         AREA = 2 * math.pi * (ir - 0.5) * dr ** 2
         
-        R[ir] = R[ir] / (AREA * len(pathlengths))
+        R[ir] = R[ir] / (AREA)
         
         for iz in range(BINS):
             
@@ -235,11 +237,11 @@ def output(A, R):
     ir_matrix, iz_matrix = np.meshgrid(ir_list, iz_list)
     
     print len(pathlengths)
-    
+    """
     plt.figure()
     plt.hist(pathlengths)
     plt.show()
-    
+    """
     plt.figure()
     plt.plot(ir_list, T, 'p-')
     plt.plot(ir_list, T, 'go')
@@ -247,7 +249,7 @@ def output(A, R):
     plt.xlabel("r(cm)")
     plt.ylabel("R(cm^-2)")
     plt.show()
-    
+    """
     fig = plt.figure()
     ax = fig.gca(projection = '3d')
     surf = ax.plot_surface(ir_matrix, iz_matrix, B, cmap=plt.cm.coolwarm, linewidth=0, antialiased=False)
@@ -256,7 +258,7 @@ def output(A, R):
     ax.set_zlabel("A")
     fig.colorbar(surf, shrink=0.5, aspect=5, label = "Value of A")
     plt.show()
-    
+    """
     
 if __name__ == "__main__":
     main()
