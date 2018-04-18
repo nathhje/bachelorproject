@@ -49,6 +49,9 @@ def main():
         
     plt.figure()
     plt.plot(rlist, Rlist)
+    plt.title("Analytical")
+    plt.xlabel("r(cm)?")
+    plt.ylabel("R(photons/cm)?")
     plt.show()
     
     

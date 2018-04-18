@@ -15,11 +15,11 @@ mu_a, mu_s, g, n, BINS = 1., 100., 0.9, 1.4, 100
 
 z1, z2, n1, n2 = 0., 0.01, 1., 1.
 
-rmax, zmax = 1., 0.08
+rmax, zmax = 0.1, 0.08
 
 mu_t, TRESHOLD, CHANCE = mu_a + mu_s, 10. ** -4, 0.1
 
-dr, dz, N = rmax / BINS, zmax / BINS, 1000000
+dr, dz, N = rmax / BINS, zmax / BINS, 100000
 
 pathlengths = []
 
@@ -33,11 +33,9 @@ def main():
     
     photon_list = []
     
-    for i in range(100000):
+    for i in range(10000):
         
         photon_list.append(Photon())
-        
-        counter += 1
         
     # running the beam
     while counter < N:
@@ -201,7 +199,7 @@ def output(A, R):
         
         AREA = 2 * math.pi * (ir - 0.5) * dr ** 2
         
-        R[ir] = R[ir] / (AREA * N)
+        R[ir] = R[ir] / (AREA * len(pathlengths))
         
         for iz in range(BINS):
             
@@ -243,7 +241,11 @@ def output(A, R):
     plt.show()
     
     plt.figure()
-    plt.plot(ir_list, T)
+    plt.plot(ir_list, T, 'p-')
+    plt.plot(ir_list, T, 'go')
+    plt.title("Less Photons")
+    plt.xlabel("r(cm)")
+    plt.ylabel("R(cm^-2)")
     plt.show()
     
     fig = plt.figure()
@@ -252,7 +254,6 @@ def output(A, R):
     ax.set_xlabel("r (cm)")
     ax.set_ylabel("z (cm)")
     ax.set_zlabel("A")
-    ax.set_ylim3d(0., zmax / 10)
     fig.colorbar(surf, shrink=0.5, aspect=5, label = "Value of A")
     plt.show()
     
