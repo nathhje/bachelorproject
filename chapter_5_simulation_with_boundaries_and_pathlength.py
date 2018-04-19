@@ -11,7 +11,9 @@ import random
 import math
 import numpy as np
 
-mu_a, mu_s, g, n, BINS = 20., 100., 0.9, 1.4, 100
+reflects = []
+
+mu_a, mu_s, g, n, BINS = 1., 100., 0.9, 1.4, 100
 
 z1, z2, n1, n2 = 0., 0.01, 1.4, 1.4
 
@@ -19,7 +21,7 @@ rmax, zmax = 0.1, 0.08
 
 mu_t, TRESHOLD, CHANCE = mu_a + mu_s, 10. ** -4, 0.1
 
-dr, dz, N = rmax / BINS, zmax / BINS, 1000000
+dr, dz, N = rmax / BINS, zmax / BINS, 400000
 
 pathlengths = []
 
@@ -40,7 +42,7 @@ def main():
     # running the beam
     while counter < N:
         
-        for photon in photon_list:
+        for index, photon in enumerate(photon_list):
                 
             s = - math.log(random.random())/mu_t
                 
@@ -56,9 +58,10 @@ def main():
                     
                 else:
                     
-                    pathlengths.append(photon.path)
+                    reflects.append(photon.nrreflect)
                     
-                    photon = Photon()
+                    pathlengths.append(photon.path)
+                    photon_list[index] = Photon()
                     
                     counter += 1
     
@@ -81,6 +84,7 @@ class Photon:
         
         self.weight = 1.
         self.path = 0.
+        self.nrreflect = 0.
     
     def change_position(self, s, R):
         
@@ -94,6 +98,7 @@ class Photon:
         
 def reflect(photon, s, R):
     
+    photon.nrreflect += 1
     photon.x -= s * photon.ux
     photon.y -= s * photon.uy
     photon.z -= s * photon.uz
@@ -133,7 +138,7 @@ def reflect(photon, s, R):
     
     if ir >= BINS:
         ir = BINS - 1
-    
+        
     R[ir] += (1 - Ri) * photon.weight
     photon.weight = Ri * photon.weight
     
@@ -193,15 +198,17 @@ def direction(photon):
     photon.uz = uzz
     
 def output(A, R):
-    
-    
+    print "output" 
+    print R[0]
+    print R[1]
     for ir in range(BINS):
         
         V = 2 * math.pi * (ir - 0.5) * dr ** 2 * dz
         
         AREA = 2 * math.pi * (ir - 0.5) * dr ** 2
         
-        R[ir] = R[ir] / (AREA)
+        
+        R[ir] = R[ir] / (AREA * N)
         
         for iz in range(BINS):
             
@@ -236,7 +243,10 @@ def output(A, R):
     
     ir_matrix, iz_matrix = np.meshgrid(ir_list, iz_list)
     
+    print "last stuff"
     print len(pathlengths)
+    print R[0]
+    print R[1]
     """
     plt.figure()
     plt.hist(pathlengths)
