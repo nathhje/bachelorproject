@@ -12,8 +12,9 @@ import math
 import numpy as np
 
 reflects = []
+totalR = [0]
 
-mu_a, mu_s, g, n, BINS = 1., 100., 0.9, 1.4, 100
+mu_a, mu_s, g, n, BINS = 1., 100., 0.9, 1.4, 500
 
 z1, z2, n1, n2 = 0., 0.01, 1.4, 1.4
 
@@ -21,7 +22,7 @@ rmax, zmax = 0.1, 0.08
 
 mu_t, TRESHOLD, CHANCE = mu_a + mu_s, 10. ** -4, 0.1
 
-dr, dz, N = rmax / BINS, zmax / BINS, 400000
+dr, dz, N = rmax / BINS, zmax / BINS, 100000
 
 pathlengths = []
 
@@ -140,6 +141,7 @@ def reflect(photon, s, R):
         ir = BINS - 1
         
     R[ir] += (1 - Ri) * photon.weight
+    totalR[0] += (1 - Ri) * photon.weight
     photon.weight = Ri * photon.weight
     
     pathlengths.append(photon.path)
@@ -199,8 +201,7 @@ def direction(photon):
     
 def output(A, R):
     print "output" 
-    print R[0]
-    print R[1]
+    print totalR[0]
     for ir in range(BINS):
         
         V = 2 * math.pi * (ir - 0.5) * dr ** 2 * dz
@@ -215,7 +216,7 @@ def output(A, R):
             A[ir, iz] = A[ir, iz] / (V * N)
     
     
-    ir_list = [i for i in np.arange(dr, rmax - dr - 0.5 * dr, dr)]
+    ir_list = [i for i in np.arange(0.01, rmax - dr - 0.5 * dr, dr)]
     iz_list = [i for i in np.arange(dz, zmax - dz - 0.5 * dz, dz)]
     
     B = np.zeros([BINS - 2, BINS - 2])
@@ -223,7 +224,7 @@ def output(A, R):
     counter = 0
     anothercounter = 0
     
-    for ir in range(BINS - 2):
+    for ir in range(BINS - 2 - len(ir_list), BINS - 2):
         
         anothercounter += 1
     
@@ -237,7 +238,7 @@ def output(A, R):
             
     T = []
     
-    for ir in range(BINS - 2):
+    for ir in range(BINS - 2 - len(ir_list), BINS - 2):
         
         T.append(R[ir + 1])
     
@@ -245,8 +246,8 @@ def output(A, R):
     
     print "last stuff"
     print len(pathlengths)
-    print R[0]
-    print R[1]
+    print T[0]
+    print T[1]
     """
     plt.figure()
     plt.hist(pathlengths)
@@ -255,7 +256,7 @@ def output(A, R):
     plt.figure()
     plt.plot(ir_list, T, 'p-')
     plt.plot(ir_list, T, 'go')
-    plt.title("Less Photons")
+    plt.title("500 bins")
     plt.xlabel("r(cm)")
     plt.ylabel("R(cm^-2)")
     plt.show()
