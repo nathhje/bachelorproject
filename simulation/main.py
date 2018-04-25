@@ -8,10 +8,13 @@ import math
 def main():
 
     prop = Properties()
+    counter = 0
     
-    for i in range(10000):
+    for i in range(prop.Nt):
         
         prop.photon_list.append(Photon())
+        
+        counter += 1
         
     # running the beam
     while prop.counter < prop.N:
@@ -35,11 +38,19 @@ def main():
                     prop.reflects.append(photon.nrreflect)
                     
                     prop.pathlengths.append(photon.path)
-                    prop.photon_list[index] = Photon()
                     
+                    if counter < prop.N:
+                        prop.photon_list[index] = Photon()
+                        counter += 1 
+                        
+                    else:
+                        prop.photon_list.remove(photon)
+                                       
                     prop.counter += 1
     
+    
     output(prop)
+    
     
 if __name__ == "__main__":
     main()

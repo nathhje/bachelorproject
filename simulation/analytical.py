@@ -54,6 +54,8 @@ def main():
     plt.ylabel("R(photons/cm)?")
     plt.show()
     
+    return Rlist, rlist
+    
     
 if __name__ == "__main__":
     main()

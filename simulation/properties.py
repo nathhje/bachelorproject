@@ -19,19 +19,18 @@ class Properties:
         self.n1 = 1.4
         self.n2 = 1.4
         
-        self.rmax = 0.1
+        self.rmax = 0.15
         self.zmax = 0.08
         
-        
-        self.BINS = 500
+        self.BINS = 200
         self.TRESHOLD = 10. ** -4
         self.CHANCE = 0.1
         
         self.dr = self.rmax / self.BINS
         self.dz = self.zmax / self.BINS
         
-        self.N = 100000
-        self.Nt = 10000
+        self.N = 1000
+        self.Nt = 1000
         
         self.A = np.zeros([self.BINS, self.BINS])
         self.R = [0 for i in range(self.BINS)]

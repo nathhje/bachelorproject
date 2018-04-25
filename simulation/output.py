@@ -1,10 +1,11 @@
+import analytical
 import math
 import matplotlib.pyplot as plt
 import numpy as np
 
 def output(prop):
-    print "output" 
-    print prop.totalR
+    print("output")
+    print(prop.totalR)
     for ir in range(prop.BINS):
         
         V = 2 * math.pi * (ir - 0.5) * prop.dr ** 2 * prop.dz
@@ -47,10 +48,10 @@ def output(prop):
     
     ir_matrix, iz_matrix = np.meshgrid(ir_list, iz_list)
     
-    print "last stuff"
-    print len(prop.pathlengths)
-    print T[0]
-    print T[1]
+    print("last stuff")
+    print(len(prop.pathlengths))
+    print(T[0])
+    print(T[1])
     """
     plt.figure()
     plt.hist(pathlengths)
@@ -73,3 +74,14 @@ def output(prop):
     fig.colorbar(surf, shrink=0.5, aspect=5, label = "Value of A")
     plt.show()
     """
+    
+    R, r = analytical.main()
+    
+    plt.figure()
+    plt.plot(ir_list, T, 'p-')
+    plt.plot(ir_list, T, 'go')
+    plt.plot(r, R)
+    plt.xlim(0.01, 1.)
+    plt.show()
+    
+    return ir_list, T
