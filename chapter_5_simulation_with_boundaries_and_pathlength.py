@@ -1,5 +1,5 @@
 """
-12 April 2018 by Nathalie van Sterkenburg
+12 April 2018 by Nathalie van Sterkenburg.
 Simulation of photons in tissue. There's a front boundary and the pathlength of
 each photon is measured. Based on algorithm chapter 5 of Optical-Thermal 
 Response of Laser-Irradiated Tissue.

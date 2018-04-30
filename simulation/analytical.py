@@ -1,5 +1,5 @@
 """
-16 April 2018 by Nathalie van Sterkenburg
+16 April 2018 by Nathalie van Sterkenburg.
 Analytical solution for radial reflection from photons in tissue. Based on
 Welch and Van Gemert and the article by Farrell and Patterson.
 """
@@ -8,54 +8,69 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-mua, mus, g, nin = 1., 100., 0.9, 1.4
-
-muc, nuit = (1 - g) * mus, 1.4
-
-n = nin / nuit
-
 def main():
+    """ Generates analytical solution. """
 
-    rlist = []
-    Rlist = []
+    props = Properties()
     
-    a = muc / (mua + muc)
-    
-    ueff = mua * (3 / (1 - a)) ** 0.5
-    
-    rid = -1.44 * n ** -2 + 0.71 * n ** -1 + 0.67 + 0.0636 * n
-    
-    k = (1 + rid) / (1 - rid)
-    
-    D = (3 * (mua + muc)) ** -1
-    
-    z0 = (mua + muc) ** -1
-    
-    zb = 2 * k * D
-    
+    # Finding R for each r.
     for r in np.arange(0, 1., 0.002):
         
-        rlist.append(r)
+        props.rlist.append(r / 10.)
         
-        rho1 = (z0 ** 2 + r ** 2) ** 0.5
+        rho1 = (props.z0 ** 2 + r ** 2) ** 0.5
         
-        rho2 = ((z0 + 2*zb) ** 2 + r**2)
+        rho2 = ((props.z0 + 2*props.zb) ** 2 + r**2)
         
-        R = (z0 * (ueff + rho1 ** -1) * math.exp( -ueff * rho1) / (rho1 ** 2)
-            + (z0 + 2 * zb) * (ueff + rho2 ** -1) * math.exp( -ueff * rho2)
-            / (rho2 ** 2)) / 4 / math.pi
+        # The formula for the analytical solution is calculated.
+        R = (props.z0 * (props.ueff + rho1 ** -1) * math.exp( -props.ueff * rho1) 
+            / (rho1 ** 2) + (props.z0 + 2 * props.zb) * (props.ueff + rho2 ** -1) 
+            * math.exp( -props.ueff * rho2) / (rho2 ** 2)) / 4 / math.pi
             
-        Rlist.append(R)
+        props.Rlist.append(R)
         
+    # The result is plotted.
     plt.figure()
-    plt.plot(rlist, Rlist)
+    plt.plot(props.rlist, props.Rlist)
     plt.title("Analytical")
     plt.xlabel("r(cm)?")
     plt.ylabel("R(photons/cm)?")
     plt.show()
     
-    return Rlist, rlist
+    return props
     
+class Properties:
+    """ Contains all variables. """
+    
+    def __init__(self):
+        
+        # The tissue properties.
+        self.mua = 1.
+        self.mus = 100.
+        self.g = 0.9
+        self.muc = (1 - self.g) * self.mus
+        
+        # The refractive indices.
+        self.nin = 1.4
+        self.nuit = 1.4
+        self.n = self.nin / self.nuit
+        
+        # The changing variables.
+        self.rlist = []
+        self.Rlist = []
+    
+        # All parameters used in calculation
+        self.a = self.muc / (self.mua + self.muc)
+        
+        self.ueff = self.mua * (3. / (1 - self.a)) ** 0.5
+        self.rid = -1.44 * self.n ** -2 + 0.71 * self.n ** -1 + 0.67 + 0.0636 * self.n
+        
+        self.k = (1 + self.rid) / (1 - self.rid)
+        self.D = (3 * (self.mua + self.muc)) ** -1
+        
+        self.z0 = (self.mua + self.muc) ** -1
+        self.zb = 2 * self.k * self.D
+        
     
 if __name__ == "__main__":
     main()
