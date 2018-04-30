@@ -16,11 +16,11 @@ def main():
     # Finding R for each r.
     for r in np.arange(0, 1., 0.002):
         
-        props.rlist.append(r / 10.)
+        props.rlist.append(r)
         
         rho1 = (props.z0 ** 2 + r ** 2) ** 0.5
         
-        rho2 = ((props.z0 + 2*props.zb) ** 2 + r**2)
+        rho2 = ((props.z0 + 2*props.zb) ** 2 + r**2) ** 0.5
         
         # The formula for the analytical solution is calculated.
         R = (props.z0 * (props.ueff + rho1 ** -1) * math.exp( -props.ueff * rho1) 
@@ -35,6 +35,8 @@ def main():
     plt.title("Analytical")
     plt.xlabel("r(cm)?")
     plt.ylabel("R(photons/cm)?")
+    plt.yscale("log")
+    plt.axis([0, 0.35, 10**-2, 10**2])
     plt.show()
     
     return props
@@ -46,13 +48,15 @@ class Properties:
         
         # The tissue properties.
         self.mua = 1.
-        self.mus = 100.
-        self.g = 0.9
-        self.muc = (1 - self.g) * self.mus
+        #self.mus = 10.
+        self.g = 0.8
+        #self.muc = (1 - self.g) * self.mus
+        self.muc = 10.
+        self.mus = self.muc / (1 - self.g)
         
         # The refractive indices.
-        self.nin = 1.4
-        self.nuit = 1.4
+        self.nin = 1.
+        self.nuit = 1.
         self.n = self.nin / self.nuit
         
         # The changing variables.

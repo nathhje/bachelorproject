@@ -25,7 +25,7 @@ def main():
         prop.madecounter += 1
         
     # The beam is simulated and the outcome saved.
-    while prop.madecounter < prop.N:
+    while prop.abcounter < prop.N:
         
         # Each photon takes a step.
         for index, photon in enumerate(prop.photon_list):

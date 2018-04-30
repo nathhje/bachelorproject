@@ -59,7 +59,7 @@ def output(prop):
     # Removal for the reflection.
     T = []
     
-    for ir in range(prop.BINS - 2 - len(ir_list), prop.BINS - 2):
+    for ir in range(prop.BINS - 1 - len(ir_list), prop.BINS - 1):
         
         T.append(prop.R[ir + 1])
     
@@ -71,7 +71,7 @@ def output(prop):
     print(T[0])
     print(T[1])
     
-    # Plot of pahtlength distribution.
+    # Plot of pathlength distribution.
 
     plt.figure()
     plt.hist(prop.pathlengths)
@@ -81,7 +81,8 @@ def output(prop):
     plt.figure()
     plt.plot(ir_list, T, 'p-')
     plt.plot(ir_list, T, 'go')
-    plt.title("500 bins")
+    plt.yscale("log")
+    plt.title("reflectance of photons")
     plt.xlabel("r(cm)")
     plt.ylabel("R(cm^-2)")
     plt.show()
@@ -106,5 +107,6 @@ def output(prop):
     plt.plot(ir_list, T, 'p-')
     plt.plot(ir_list, T, 'go')
     plt.plot(analyticalprops.rlist, analyticalprops.Rlist)
-    plt.xlim(0.01, 0.15)
+    plt.yscale("log")
+    plt.xlim(0.01, 0.35)
     plt.show()

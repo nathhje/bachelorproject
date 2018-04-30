@@ -20,22 +20,23 @@ class Properties:
         
         # The tissue properties.
         self.mu_a = 1.
-        self.mu_s = 100.
+        self.mu_c = 10.
+        self.g = 0.8
+        self.n = 1.
+        self.mu_s = self.mu_c / (1 - self.g)
         self.mu_t = self.mu_a + self.mu_s
-        self.g = 0.9
-        self.n = 1.4
         
         # Properties of the front boundary.
         self.z1 = 0.
-        self.n1 = 1.4
+        self.n1 = 1.
         
         # The area where the propagation is measured.
         # Because the situation is point symmetric, no angle is defined.
-        self.rmax = 0.15
+        self.rmax = 0.35
         self.zmax = 0.08
         
         # Magic numbers for number of bins and the values that handle absorption.
-        self.BINS = 200
+        self.BINS = 500
         self.TRESHOLD = 10. ** -4
         self.CHANCE = 0.1
         
@@ -44,8 +45,8 @@ class Properties:
         self.dz = self.zmax / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 300000
-        self.Nt = 30000
+        self.N = 500000
+        self.Nt = 100000
         
         # This is the result of the simulation.
         # Each bin saves the amount of weight that was absorped in range of that bin.
