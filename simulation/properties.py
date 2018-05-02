@@ -33,10 +33,10 @@ class Properties:
         # The area where the propagation is measured.
         # Because the situation is point symmetric, no angle is defined.
         self.rmax = 0.35
-        self.zmax = 0.08
+        self.zmax = 0.1
         
         # Magic numbers for number of bins and the values that handle absorption.
-        self.BINS = 500
+        self.BINS = 200
         self.TRESHOLD = 10. ** -4
         self.CHANCE = 0.1
         
@@ -45,7 +45,7 @@ class Properties:
         self.dz = self.zmax / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 500000
+        self.N = 1000000
         self.Nt = 100000
         
         # This is the result of the simulation.

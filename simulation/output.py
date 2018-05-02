@@ -70,6 +70,7 @@ def output(prop):
     print(len(prop.pathlengths))
     print(T[0])
     print(T[1])
+    print(T)
     
     # Plot of pathlength distribution.
 
@@ -109,4 +110,5 @@ def output(prop):
     plt.plot(analyticalprops.rlist, analyticalprops.Rlist)
     plt.yscale("log")
     plt.xlim(0.01, 0.35)
+    plt.ylim(10**-2, 10**2)
     plt.show()

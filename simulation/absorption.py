@@ -43,7 +43,7 @@ def direction(photon, prop):
     
     # Updates photon direction the very first time, when it only moves in the 
     # z-direction.
-    if photon.ux == 0 or photon.uy == 0:
+    if 1. - 10**-12 < photon.uz < 1. + 10 **-12:
         uxx = sinth * cosph
         uyy = sinth * sinph
     
