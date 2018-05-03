@@ -59,7 +59,7 @@ def output(prop):
     # Removal for the reflection.
     T = []
     
-    for ir in range(prop.BINS - 1 - len(ir_list), prop.BINS - 1):
+    for ir in range(prop.BINS - 1 - len(ir_list), prop.BINS - 2):
         
         T.append(prop.R[ir + 1])
     
@@ -70,7 +70,6 @@ def output(prop):
     print(len(prop.pathlengths))
     print(T[0])
     print(T[1])
-    print(T)
     
     # Plot of pathlength distribution.
 
