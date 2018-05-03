@@ -45,8 +45,8 @@ class Properties:
         self.dz = self.zmax / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 500000
-        self.Nt = 10000
+        self.N = 1000000
+        self.Nt = 100000
         
         # This is the result of the simulation.
         # Each bin saves the amount of weight that was absorped in range of that bin.

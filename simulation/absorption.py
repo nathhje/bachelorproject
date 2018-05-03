@@ -54,6 +54,12 @@ def direction(photon, prop):
         
         else:
             uzz = - costh
+        
+        total = uxx ** 2 + uyy ** 2 + uzz ** 2
+        
+        uxx = uxx / total
+        uyy = uyy / total
+        uzz = uzz / total
             
         
     # Calculates the new photon direction.
@@ -61,7 +67,13 @@ def direction(photon, prop):
         uxx = sinth * ( photon.ux * photon.uz * cosph - photon.uy * sinph) / temp + photon.ux * costh
         uyy = sinth * ( photon.uy * photon.uz * cosph - photon.ux * sinph) / temp + photon.uy * costh
         uzz = -sinth * cosph * temp + photon.uz * costh
-    
+        
+        total = uxx ** 2 + uyy ** 2 + uzz ** 2
+        
+        uxx = uxx / total
+        uyy = uyy / total
+        uzz = uzz / total
+        
     # Updates the photon direction.
     photon.ux = uxx
     photon.uy = uyy

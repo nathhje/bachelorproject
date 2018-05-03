@@ -40,13 +40,13 @@ def output(prop):
     
     
     # Lists for x and y axes are generated.
-    ir_list = [i for i in np.arange(0.01, prop.rmax - prop.dr - 0.5 * prop.dr, prop.dr)]
+    ir_list = [i for i in np.arange(prop.dr, prop.rmax - prop.dr - 0.5 * prop.dr, prop.dr)]
     iz_list = [i for i in np.arange(prop.dz, prop.zmax - prop.dz - 0.5 * prop.dz, prop.dz)]
     
     # First and last value are not accurate, so they are removed
     # Removal for the in tissue matrix.
     B = np.zeros([prop.BINS - 2, prop.BINS - 2])
-    
+    print(len(ir_list))
     for ir in range(prop.BINS - 2 - len(ir_list), prop.BINS - 2):
     
         for iz in range(prop.BINS - 2):
@@ -59,7 +59,7 @@ def output(prop):
     # Removal for the reflection.
     T = []
     
-    for ir in range(prop.BINS - 1 - len(ir_list), prop.BINS - 2):
+    for ir in range(prop.BINS - 2 - len(ir_list), prop.BINS - 2):
         
         T.append(prop.R[ir + 1])
     

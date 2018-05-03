@@ -37,13 +37,14 @@ def reflect(photon, s, prop):
     # the part of the photon weight that will be reflected.
     cost = photon.uz
     sint = (1 - photon.uz ** 2) ** 0.5
-    sinf = math.sin( math.asin(sint) * (prop.n/prop.n1))
+    sinf = sint * prop.n/prop.n1
     cosf = (1 - sint **2) ** 0.5
     
     # The fraction of the photon weight that continues propagating is determined.
     Ri = (((sint * cosf - cost * sinf) ** 2) / 2) * (((cost * cosf + sint * sinf) 
             ** 2 + (cost * cosf - sint * sinf) ** 2) / ((sint * cosf + cost * sinf) 
             ** 2 * (cost * cosf + sint * sinf) ** 2))
+    Ri = Ri.real
     
     # The index of the bin that should save the photon weight is determined.
     r = (photon.x ** 2 + photon.y ** 2) ** 0.5
