@@ -18,7 +18,7 @@ def output(prop):
     both. And some print statements.
     """ 
         
-    AREA = 2 * math.pi * (prop.rmax ** 2 - prop.rmin ** 2)
+    AREA = math.pi * (prop.rmax ** 2 - prop.rmin ** 2)
     print(prop.R)
     # Reflection is normalized.
     prop.R = prop.R / (AREA * prop.N)
