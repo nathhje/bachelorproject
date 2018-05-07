@@ -46,13 +46,17 @@ def reflect(photon, s, prop):
             ** 2 * (cost * cosf + sint * sinf) ** 2))
     Ri = Ri.real
     
-    # The index of the bin that should save the photon weight is determined.
+    # The radius from the source is determined
     r = (photon.x ** 2 + photon.y ** 2) ** 0.5
     
     # If the photon is reflected at the right distance, the weight is saved
     if prop.rmin <= r <= prop.rmax:
         
         prop.R += (1 - Ri) * photon.weight
+        
+    # Pathlength and weight are saved for pathlength distribution
+    prop.pathlengths.append(photon.path - s1)
+    prop.weights.append((1 - Ri) * photon.weight)
         
     # Weight is updated
     photon.weight = Ri * photon.weight

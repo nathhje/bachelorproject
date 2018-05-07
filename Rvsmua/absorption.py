@@ -11,6 +11,8 @@ import random
 def bins(photon, prop):
     """ Alters photon weight and puts absorbed weight in bin. """
     
+    prop.pathlengths.append(photon.path)
+    prop.weights.append((1 - prop.mu_s / prop.mu_t) * photon.weight)
     photon.weight = photon.weight * prop.mu_s / prop.mu_t
     
 def direction(photon, prop):

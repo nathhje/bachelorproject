@@ -1,71 +1,38 @@
+# -*- coding: utf-8 -*-
 """
-12 April 2018 by Nathalie van Sterkenburg.
-Simulation of photons in tissue. There's a front boundary and the pathlength of
-each photon is measured. Based on algorithm chapter 5 of Optical-Thermal 
-Response of Laser-Irradiated Tissue.
-"""
+Created on Mon May  7 11:22:02 2018
 
-from properties import Properties
-from photon import Photon
-from output import output
-import absorption
-import random
-import math
+@author: navansterkenburg
+
+Runs simulation for multiple mua and makes R vs mua plots.
+"""
+import matplotlib.pyplot as plt
+
+import runsimulation as rs
+import numpy as np
 
 def main():
-    """ Runs the simulation. """
-
-    prop = Properties()
     
-    # The list of photons is generated.
-    for i in range(prop.Nt):
-        
-        prop.photon_list.append(Photon())
-        
-        prop.madecounter += 1
-        
-    # The beam is simulated and the outcome saved.
-    while prop.abcounter < prop.N:
-        
-        # Each photon takes a step.
-        for index, photon in enumerate(prop.photon_list):
-                
-            # The length of the step.
-            s = - math.log(random.random())/prop.mu_t
-                
-            # The photon is updated.
-            photon.change_position(s, prop)
-            absorption.bins(photon, prop)
-            absorption.direction(photon, prop)
-        
-            # It is decided if the photon is terminated.
-            if photon.weight < prop.TRESHOLD:
-                
-                # The photons weight is increased and it continues propagating.
-                if random.random() <= prop.CHANCE:
-                    
-                    photon.weight = photon.weight / prop.CHANCE
-                    
-                # The photon is terminated.
-                else:
-                    
-                    # The photons data are saved.
-                    prop.reflects.append(photon.nrreflect)
-                    
-                    # If new photons are still needed, a new one is created.
-                    if prop.madecounter < prop.N:
-                        prop.photon_list[index] = Photon()
-                        prop.madecounter += 1 
-                        
-                    # If not, the list entry is removed.
-                    else:
-                        prop.photon_list.remove(photon)
-                                       
-                    prop.abcounter += 1
+    mualist = []
+    Rlist = []
     
+    for mua in np.arange(0.1, 4., 0.1):
+        
+        mualist.append(mua)
     
-    output(prop)
-    
+        prop = rs.runSimulation(mua)
+        
+        Rlist.append(prop.R)
+        
+        # Plot of pathlength distribution.
+        plt.figure()
+        plt.hist(prop.pathlengths, bins = 100, weights = prop.weights)
+        plt.title("Pathlength distribution for mu_a = {}".format(mua))
+        plt.xlabel("pathlength (cm or mm ?)")
+        plt.ylabel("amount of photons")
+        
+    prop.RvsMua(mualist, Rlist)
     
 if __name__ == "__main__":
+    
     main()

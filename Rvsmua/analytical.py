@@ -28,16 +28,6 @@ def main():
             * math.exp( -props.ueff * rho2) / (rho2 ** 2)) / 4 / math.pi
             
         props.Rlist.append(R)
-        
-    # The result is plotted.
-    plt.figure()
-    plt.plot(props.rlist, props.Rlist)
-    plt.title("Analytical")
-    plt.xlabel("r(cm)?")
-    plt.ylabel("R(photons/cm)?")
-    plt.yscale("log")
-    plt.axis([0, 0.35, 10**-2, 10**2])
-    plt.show()
     
     return props
     

@@ -110,4 +110,7 @@ def output(prop):
     plt.yscale("log")
     plt.xlim(0.01, 0.35)
     plt.ylim(10**-2, 10**2)
+    plt.title("Reflectance as a function of radius")
+    plt.xlabel("r (cm)")
+    plt.ylabel("R (cm^-2)")
     plt.show()

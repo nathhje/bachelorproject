@@ -19,7 +19,7 @@ class Properties:
         self.totalR = 0
         
         # The tissue properties.
-        self.mu_a = 1.
+        self.mu_a = 2.
         self.mu_c = 10.
         self.g = 0.8
         self.n = 1.
