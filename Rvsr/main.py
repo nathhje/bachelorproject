@@ -12,10 +12,10 @@ import absorption
 import random
 import math
 
-def main():
+def main(mua):
     """ Runs the simulation. """
 
-    prop = Properties()
+    prop = Properties(mua)
     
     # The list of photons is generated.
     for i in range(prop.Nt):
@@ -66,8 +66,9 @@ def main():
                     prop.abcounter += 1
     
     
-    output(prop)
+    return output(prop, mua)
     
     
 if __name__ == "__main__":
-    main()
+    mua = 0.1
+    main(mua)

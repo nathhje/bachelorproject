@@ -8,10 +8,10 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-def main():
+def main(mua):
     """ Generates analytical solution. """
 
-    props = Properties()
+    props = Properties(mua)
     
     # Finding R for each r.
     for r in np.arange(0, 1., 0.002):
@@ -44,10 +44,10 @@ def main():
 class Properties:
     """ Contains all variables. """
     
-    def __init__(self):
+    def __init__(self, mua):
         
         # The tissue properties.
-        self.mua = 1.
+        self.mua = mua
         #self.mus = 10.
         self.g = 0.8
         #self.muc = (1 - self.g) * self.mus
@@ -77,4 +77,5 @@ class Properties:
         
     
 if __name__ == "__main__":
-    main()
+    mua = 1.
+    main(mua)

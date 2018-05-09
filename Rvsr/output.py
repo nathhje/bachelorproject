@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-def output(prop):
+def output(prop, mua):
     """
     Generates the output of both the simulation and the analytical solution.
     Generates three R vs r graphs, one for the analytical solution, one for the
@@ -100,7 +100,7 @@ def output(prop):
     """
     
     # Analytical solution is generated and R vs r plotted.
-    analyticalprops = analytical.main()
+    analyticalprops = analytical.main(mua)
     
     # Plot combining R vs r of analytical solution and simulation.
     plt.figure()
@@ -114,3 +114,6 @@ def output(prop):
     plt.xlabel("r (cm)")
     plt.ylabel("R (cm^-2)")
     plt.show()
+    
+    
+    return ir_list, T

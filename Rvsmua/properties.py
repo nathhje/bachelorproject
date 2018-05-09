@@ -12,7 +12,7 @@ import analytical
 class Properties:
     """ A list of all the necessary properties. """
     
-    def __init__(self, mua):
+    def __init__(self, mua, r):
         
         # Used for keeping up with total amounts.
         self.reflects = []
@@ -34,7 +34,7 @@ class Properties:
         
         # The R for which the propagation is measured.
         # Because the situation is point symmetric, no angle is defined.
-        self.r = 0.2
+        self.r = r
         self.rmin = self.r - 10.**-3
         self.rmax = self.r + 10.**-3
         
@@ -44,8 +44,8 @@ class Properties:
         self.CHANCE = 0.1
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 500000
-        self.Nt = 100000
+        self.N = 50000
+        self.Nt = 10000
         
         # This is the result of the simulation.
         # R is the amount of reflection at the measured distance.

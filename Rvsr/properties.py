@@ -9,7 +9,7 @@ import numpy as np
 class Properties:
     """ A list of all the necessary properties. """
     
-    def __init__(self):
+    def __init__(self, mua):
         
         # Used for keeping up with total amounts.
         self.reflects = []
@@ -19,7 +19,7 @@ class Properties:
         self.totalR = 0
         
         # The tissue properties.
-        self.mu_a = 2.
+        self.mu_a = mua
         self.mu_c = 10.
         self.g = 0.8
         self.n = 1.

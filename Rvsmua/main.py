@@ -11,28 +11,31 @@ import matplotlib.pyplot as plt
 import runsimulation as rs
 import numpy as np
 
-def main():
+def main(r):
     
     mualist = []
     Rlist = []
     
-    for mua in np.arange(0.1, 4., 0.1):
+    for mua in np.arange(0.1, 2.5, 0.2):
+        print(mua)
         
         mualist.append(mua)
     
-        prop = rs.runSimulation(mua)
+        prop = rs.runSimulation(mua, r)
         
         Rlist.append(prop.R)
         
-        # Plot of pathlength distribution.
-        plt.figure()
-        plt.hist(prop.pathlengths, bins = 100, weights = prop.weights)
-        plt.title("Pathlength distribution for mu_a = {}".format(mua))
-        plt.xlabel("pathlength (cm or mm ?)")
-        plt.ylabel("amount of photons")
+    # Plot of pathlength distribution.
+    plt.figure()
+    plt.hist(prop.pathlengths, bins = 100, weights = prop.weights)
+    plt.title("Pathlength distribution for mu_a = {}".format(mua))
+    plt.xlabel("pathlength (cm or mm ?)")
+    plt.ylabel("amount of photons")
         
     prop.RvsMua(mualist, Rlist)
     
+    return mualist, Rlist
+    
 if __name__ == "__main__":
     
-    main()
+    main(0.3)

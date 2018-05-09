@@ -11,10 +11,10 @@ import absorption
 import random
 import math
 
-def runSimulation(mua):
+def runSimulation(mua, r):
     """ Runs the simulation. """
 
-    prop = Properties(mua)
+    prop = Properties(mua, r)
     
     # The list of photons is generated.
     for i in range(prop.Nt):
