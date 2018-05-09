@@ -25,6 +25,13 @@ def main(r):
         
         Rlist.append(prop.R)
         
+    totalWeight = 0
+        
+    for weight in prop.weights:
+        
+        totalWeight += weight
+    print(totalWeight)
+        
     # Plot of pathlength distribution.
     plt.figure()
     plt.hist(prop.pathlengths, bins = 100, weights = prop.weights)
