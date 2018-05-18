@@ -46,8 +46,8 @@ class Properties:
         self.CHANCE = 0.1
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 10000000
-        self.Nt = 1000000
+        self.N = 500000
+        self.Nt = 50000
         
         # This is the result of the simulation.
         # R is the amount of reflection at the measured distance.

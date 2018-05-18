@@ -5,6 +5,13 @@ Created on Mon May  7 11:22:02 2018
 @author: navansterkenburg
 
 Runs simulation for multiple mua and makes R vs mua plots.
+
+Current number of photons saved: 1150000 vanaf 2.5
+1550000 tot en met 2.3
+Currently working on: 400000
+
+Current saved without absorption: 500000
+Currently working on: 000000
 """
 import matplotlib.pyplot as plt
 
@@ -14,13 +21,11 @@ import csv
 
 def main(r):
     
-    mualist = []
+    mualist = [2.5000000000000004, 2.7000000000000006, 2.900000000000001, 3.1000000000000005, 3.3000000000000007, 3.500000000000001, 3.7000000000000006, 3.900000000000001, 4.1000000000000005, 4.300000000000001, 4.500000000000001, 4.7, 4.9]
     Rlist = []
     
-    for mua in np.arange(0.1, 5., 0.2):
+    for mua in mualist:
         print(mua)
-        
-        mualist.append(mua)
     
         prop = rs.runSimulation(mua, r)
         
