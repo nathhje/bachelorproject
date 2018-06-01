@@ -14,13 +14,13 @@ def main(r):
     
     theweights = []
     pathlengths = []
-    r = 1.
+    r = 0.3
     delta = 0.001
     
-    mua = [i for i in np.arange(0.1, 3., 0.2)]
-    reflectance = [0 for i in np.arange(0.1, 3., 0.2)]
+    mua = [i for i in np.arange(0.1, 5., 0.2)]
+    reflectance = [0 for i in np.arange(0.1, 5., 0.2)]
     
-    with open("reflectedPhotons.csv", 'r') as csvfile:
+    with open("photonsmua0.0.csv", 'r') as csvfile:
     
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         
@@ -53,7 +53,8 @@ def main(r):
             reflectance[i] += R
             
     plt.figure()
-    plt.plot(mua, reflectance)            
+    plt.plot(mua, reflectance)     
+    plt.plot(mua, reflectance, 'bo')       
     
 if __name__ == "__main__":
     main(0)
