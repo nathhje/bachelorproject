@@ -9,7 +9,7 @@ import csv
 
 reflectedPhotons = []
 
-with open("actualphotonsformua0.1.csv", 'r') as csvfile:
+with open("actualphotonsformua3.7000000000000006.csv", 'r') as csvfile:
     
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     
@@ -26,7 +26,7 @@ with open("actualphotonsformua0.1.csv", 'r') as csvfile:
         # Results are written away to avoid memory error
         if counter % 10000 == 0:
             
-            with open("photonsformua0.1.csv", 'a', newline='') as csvfile:
+            with open("photonsformua3.7000000000000006.csv", 'a', newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter=',', quotechar='"')
     
                 for row in reflectedPhotons:
@@ -36,7 +36,7 @@ with open("actualphotonsformua0.1.csv", 'r') as csvfile:
             reflectedPhotons = []
             
 # Final rows are saved
-with open("photonsformua0.1.csv", 'a', newline='') as csvfile:
+with open("photonsformua3.7000000000000006.csv", 'a', newline='') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='"')
     
     for row in reflectedPhotons:

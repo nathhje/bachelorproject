@@ -17,9 +17,6 @@ def bins(photon, prop):
     
     prop.weights.append(goneweight)
     
-    # reflect or absorped, radius (probably cm), weight (starts with 1), path travelled (probably cm)
-    prop.photonstates.append(['a', (photon.x ** 2 + photon.y ** 2) ** 0.5, goneweight, photon.path])
-    
     photon.weight = photon.weight * prop.mu_s / prop.mu_t
     
 def direction(photon, prop):
