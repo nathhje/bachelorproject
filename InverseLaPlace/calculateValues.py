@@ -5,24 +5,26 @@ Created on Tue May 29 10:29:14 2018
 @author: Gebruiker
 """
 
+import getPs
+
 def V(N):
     
     Nh = int(N / 2)
     print(Nh)
     G = [1]
-    for i in range(1, N+1):
+    for i in range(1, N):
         G.append(G[i-1] * i)
         
     H = [1, 2 / G[Nh-1]]
     
-    for i in range(2, Nh+1):
-        H.append(Nh * G[2*i] * (G[Nh-i] * G[i] * G[i-1]))
+    for i in range(2, Nh):
+        H.append(i ** (Nh+1) * G[2*i] * (G[Nh-i] * G[i] * G[i-1]))
         
     sn = (-1) ** (N/2 + 1)
     
     V = [0]
     
-    for i in range(1, N+1):
+    for i in range(1, N):
         print("new")
         V.append(0)
         limit = Nh
@@ -31,7 +33,7 @@ def V(N):
             
             limit = i
             
-        for k in range(int((i+1) / 2), limit, 1):
+        for k in range(round((i+1) / 2), limit, 1):
             
             print(k)
             
@@ -48,16 +50,17 @@ def V(N):
     return V
 
 def F(V, N, T):
-    
+    print("new")
     a = 0.69314 / T
     
     Fa = 0
     
-    for i in range(1, N+1):
+    for i in range(1, N):
         
-        Ps = getPs()
+        Ps = getPs.exponential(a * i)
         
-        Fa += V[i] * 5
+        Fa += V[i] * Ps
+        print(Fa)
         
     Fa *= a
     
