@@ -64,6 +64,8 @@ def runSimulation(mua, r):
                     
                     if prop.abcounter % 10000 == 0:
                         prop.savePhotons()
+                        
+    prop.savePhotons()
                     
     return prop
     

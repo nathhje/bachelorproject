@@ -12,7 +12,7 @@ import output
 
 def main(r):
     
-    N = 10
+    N = 20
     
     delta = 0.001
     #mualist, reflections = rd.retrieveData(r, delta)
@@ -22,7 +22,7 @@ def main(r):
     T = []
     Fa = []
     
-    for i in np.arange(1., 10.):
+    for i in np.arange(0.01, 10., 0.01):
         
         T.append(i)
         Fa.append(cv.F(V, N, i))
@@ -30,5 +30,5 @@ def main(r):
     output.numVsAn(T, Fa)
     
 if __name__ == "__main__":
-    r = 0.5
+    r = 0.3
     main(r)

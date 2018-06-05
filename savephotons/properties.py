@@ -46,8 +46,8 @@ class Properties:
         self.CHANCE = 0.1
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 450000
-        self.Nt = 50000
+        self.N = 200000
+        self.Nt = 1000
         
         # This is the result of the simulation.
         # R is the amount of reflection at the measured distance.
@@ -107,7 +107,7 @@ class Properties:
         
         filename = 'photonsformua' + str(self.mu_a) + '.csv'
         
-        with open(filename, 'a') as csvfile:
+        with open(filename, 'a', newline = '') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='"')
         
             for row in self.photonstates:

@@ -21,4 +21,7 @@ def numVsAn(T, Fa):
     plt.plot(T, Fa, 'bo')
     plt.plot(T, Ft, 'g-')
     plt.plot(T, Ft, 'go')
+    plt.xlabel("t")
+    plt.ylabel("F")
+    plt.title("Analytical solution to a function vs Harald Stefest's algorithm", y = 1.08)
     plt.show()

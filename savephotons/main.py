@@ -6,8 +6,11 @@ Created on Mon May  7 11:22:02 2018
 
 Runs simulation for multiple mua and makes R vs mua plots.
 
-Current number of photons saved: 1550000
-Currently working on: 450000
+New batch saved: 1700000
+Working on: 000000
+
+Current number of photons saved: 2000000
+Currently working on: 000000
 
 Current saved without absorption: 2000000
 Currently working on: 0000000
@@ -20,12 +23,12 @@ import csv
 
 def main(r):
     
-    #mualist = [2.5000000000000004, 2.7000000000000006, 2.900000000000001, 3.1000000000000005, 3.3000000000000007, 3.500000000000001, 3.7000000000000006, 3.900000000000001, 4.1000000000000005, 4.300000000000001, 4.500000000000001, 4.7, 4.9]
-    #mualist = [0.0]
     mualist = []
     Rlist = []
     
-    for mua in np.arange(0.1, 5., 0.2):
+    for mua in np.arange(1.0, 1.05, 0.2):
+        
+        mua = round(mua,1)
         print(mua)
         
         mualist.append(mua)
@@ -41,7 +44,8 @@ def main(r):
     plt.xlabel("pathlength (cm or mm ?)")
     plt.ylabel("amount of photons")
         
-    prop.RvsMua(mualist, Rlist)   
+    prop.RvsMua(mualist, Rlist) 
+    prop.oneOutput()
 
     
     

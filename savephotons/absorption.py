@@ -10,13 +10,13 @@ import random
 
 def bins(photon, prop):
     """ Alters photon weight and puts absorbed weight in bin. """
-    
+    """
     prop.pathlengths.append(photon.path)
     
     goneweight = (1 - prop.mu_s / prop.mu_t) * photon.weight
     
     prop.weights.append(goneweight)
-    
+    """
     photon.weight = photon.weight * prop.mu_s / prop.mu_t
     
 def direction(photon, prop):
@@ -45,7 +45,8 @@ def direction(photon, prop):
         else:
             uzz = - costh
         
-        total = uxx ** 2 + uyy ** 2 + uzz ** 2
+        # For proper normalization
+        total = abs(uxx) + abs(uyy) + abs(uzz)
         
         uxx = uxx / total
         uyy = uyy / total
@@ -58,7 +59,8 @@ def direction(photon, prop):
         uyy = sinth * ( photon.uy * photon.uz * cosph - photon.ux * sinph) / temp + photon.uy * costh
         uzz = -sinth * cosph * temp + photon.uz * costh
         
-        total = uxx ** 2 + uyy ** 2 + uzz ** 2
+        # For proper normalization
+        total = abs(uxx) + abs(uyy) + abs(uzz)
         
         uxx = uxx / total
         uyy = uyy / total
