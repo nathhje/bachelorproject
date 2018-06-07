@@ -44,7 +44,6 @@ def reflect(photon, s, prop):
     Ri = (((sint * cosf - cost * sinf) ** 2) / 2) * (((cost * cosf + sint * sinf) 
             ** 2 + (cost * cosf - sint * sinf) ** 2) / ((sint * cosf + cost * sinf) 
             ** 2 * (cost * cosf + sint * sinf) ** 2))
-    Ri = Ri.real
     
     # The radius from the source is determined
     r = (photon.x ** 2 + photon.y ** 2) ** 0.5

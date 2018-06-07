@@ -46,7 +46,7 @@ class Properties:
         self.CHANCE = 0.1
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 200000
+        self.N = 1000
         self.Nt = 1000
         
         # This is the result of the simulation.

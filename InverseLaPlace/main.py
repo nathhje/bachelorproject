@@ -12,7 +12,7 @@ import output
 
 def main(r):
     
-    N = 20
+    N = 22
     
     delta = 0.001
     #mualist, reflections = rd.retrieveData(r, delta)

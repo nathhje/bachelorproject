@@ -12,25 +12,25 @@ def V(N):
     Nh = int(N / 2)
     print(Nh)
     G = [1]
-    for i in range(1, N):
+    for i in range(1, N+1):
         G.append(G[i-1] * i)
         
     H = [1, 2 / G[Nh-1]]
     
-    for i in range(2, Nh):
-        H.append(i ** (Nh+1) * G[2*i] / (G[Nh-i] * G[i] * G[i-1]))
+    for i in range(2, Nh+1):
+        H.append(i ** (Nh) * G[2*i] / (G[Nh-i] * G[i] * G[i-1]))
         
     sn = (-1) ** (N/2 + 1)
     
     V = [0]
     
-    for i in range(1, N):
+    for i in range(1, N+1):
         V.append(0)
-        limit = Nh
+        limit = Nh+1
         
         if i < Nh:
             
-            limit = i
+            limit = i+1
             
         for k in range(int((i+1) / 2), limit, 1):
             
@@ -52,7 +52,7 @@ def F(V, N, T):
     
     Fa = 0
     
-    for i in range(1, N):
+    for i in range(1, N+1):
         
         Ps = getPs.exponential(a * i)
         
