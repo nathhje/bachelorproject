@@ -46,7 +46,9 @@ def V(N):
     
     return V
 
-def F(V, N, T):
+def F(V, N, T, formula):
+    
+    function = globals()[formula]
     
     a = 0.69314 / T
     
@@ -54,7 +56,7 @@ def F(V, N, T):
     
     for i in range(1, N+1):
         
-        Ps = getPs.exponential(a * i)
+        Ps = function(a * i)
         
         Fa += V[i] * Ps
         

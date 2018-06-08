@@ -5,30 +5,30 @@ Created on Tue May 29 10:29:46 2018
 @author: Gebruiker
 """
 
-import calculateValues as cv
-import retrieveData as rd
-import numpy as np
-import output
+import sys
+import classes.properties as properties
 
-def main(r):
+def main():
     
-    N = 22
+    prop = properties.Properties()
     
-    delta = 0.001
-    #mualist, reflections = rd.retrieveData(r, delta)
-    
-    V = cv.V(N)
-    
-    T = []
-    Fa = []
-    
-    for i in np.arange(0.01, 10., 0.01):
+    if sys.argv[1] == "exponential":
         
-        T.append(i)
-        Fa.append(cv.F(V, N, i))
-    
-    output.numVsAn(T, Fa)
+        prop.formula = "exponential"
+        
+        prop.algorithm()
+        
+        prop.numVsAn()
+        
+    if sys.argv[1] == "dataset":
+        
+        prop.retrieveData()
+        
+        prop.formula = "dataset"
+        
+        prop.algorithm()
+        
+        prop.algorithmOutcome()
     
 if __name__ == "__main__":
-    r = 0.3
-    main(r)
+    main()

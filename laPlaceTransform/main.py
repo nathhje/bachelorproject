@@ -10,17 +10,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-def main(r):
+def main():
     
     theweights = []
     pathlengths = []
     r = 0.3
     delta = 0.001
     
-    mua = [i for i in np.arange(0.1, 5., 0.2)]
-    reflectance = [0 for i in np.arange(0.1, 5., 0.2)]
+    mua = [i for i in np.arange(0.0, 12., 1)]
+    reflectance = [0 for i in np.arange(0.0, 12., 1)]
     
-    with open("photonsmua0.0.csv", 'r') as csvfile:
+    with open("data/photonsformua0.0.csv", 'r') as csvfile:
     
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         
@@ -57,4 +57,4 @@ def main(r):
     plt.plot(mua, reflectance, 'bo')       
     
 if __name__ == "__main__":
-    main(0)
+    main()
