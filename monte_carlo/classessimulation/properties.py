@@ -53,7 +53,7 @@ class Properties:
         self.dz = self.zlim / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 5000000
+        self.N = 100000
         self.Nt = 1000
         
         # Each bin saves the amount of weight that was absorped in range of that bin.

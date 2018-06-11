@@ -15,6 +15,7 @@ def main():
     if sys.argv[1] == "exponential":
         
         prop.formula = "exponential"
+        prop.FtFormula = "exponentialFt"
         
         prop.algorithm()
         
@@ -33,10 +34,11 @@ def main():
     if sys.argv[1] == "reflectance":
         
         prop.formula = "reflectance"
+        prop.FtFormula = "reflectanceFt"
         
         prop.algorithm()
         
-        prop.algorithmOutcome()
+        prop.numVsAn()
     
 if __name__ == "__main__":
     main()

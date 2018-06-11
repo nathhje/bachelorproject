@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 from helpers.getPs import exponential
 from helpers.getPs import dataset
 from helpers.getPs import reflectance
-import helpers.getFt
+from helpers.getFt import exponential as exponentialFt
+from helpers.getFt import reflectance as reflectanceFt
 import numpy as np
 import csv
 
@@ -18,11 +19,12 @@ class Properties:
     def __init__(self):
         
         self.N = 22
-        self.r = 1.
-        self.delta = 0.0005
+        self.r = 0.4
+        self.delta = 0.05
         self.mualist = []
         self.reflections = []
         self.formula = ""
+        self.FtFormula = ""
         self.G = []
         self.H = []
         self.V = []
@@ -76,7 +78,7 @@ class Properties:
     
         function = globals()[self.formula]
     
-        for i in np.arange(0.5, 20.0, 0.01):
+        for i in np.arange(0.1, 3.0, 0.1):
             
             a = 0.69314 / i
             nextFa = 0
@@ -96,7 +98,7 @@ class Properties:
             
     def retrieveData(self):
     
-        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.005, 0.05)]
+        self.mualist = [round(i, 2) for i in np.arange(0.1, 5.0, 0.2)]
     
         for mua in self.mualist:
             print(mua)
@@ -105,7 +107,7 @@ class Properties:
         
             reflection = 0
         
-            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
+            with open("photonsmua" + str(mua) + ".csv", "r") as csvfile:
             
                 reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             
@@ -138,13 +140,16 @@ class Properties:
         plt.show()
         
     def numVsAn(self):
+        
+        function = globals()[self.formula]
+        
         print(self.T)
         print(self.Fa)
         Ft = []
     
         for i in self.T:
         
-            Ft.append(helpers.getFt.exponential(i))
+            Ft.append(function(i, self))
         
         plt.figure()
         plt.plot(self.T, self.Fa)
