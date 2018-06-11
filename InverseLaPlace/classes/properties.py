@@ -6,9 +6,10 @@ Created on Fri Jun  8 10:29:46 2018
 """
 
 import matplotlib.pyplot as plt
-import getFt
-from getPs import exponential
-from getPs import dataset
+import helpers.getFt
+from helpers.getPs import exponential
+from helpers.getPs import dataset
+from helpers.getPs import reflectance
 import numpy as np
 import csv
 
@@ -17,7 +18,7 @@ class Properties:
     def __init__(self):
         
         self.N = 22
-        self.r = 0.3
+        self.r = 1.
         self.delta = 0.0005
         self.mualist = []
         self.reflections = []
@@ -75,7 +76,7 @@ class Properties:
     
         function = globals()[self.formula]
     
-        for i in np.arange(0.5, 12.1, 0.5):
+        for i in np.arange(0.5, 20.0, 0.01):
             
             a = 0.69314 / i
             nextFa = 0
@@ -143,7 +144,7 @@ class Properties:
     
         for i in self.T:
         
-            Ft.append(getFt.exponential(i))
+            Ft.append(helpers.getFt.exponential(i))
         
         plt.figure()
         plt.plot(self.T, self.Fa)
