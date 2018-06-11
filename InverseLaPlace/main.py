@@ -5,7 +5,7 @@ Created on Tue May 29 10:29:46 2018
 My laptop did: 1.4
 """
 
-import sys
+import sys 
 import classes.properties as properties
 
 def main():
