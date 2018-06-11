@@ -95,26 +95,26 @@ class Properties:
             
     def retrieveData(self):
     
-        self.mualist = [round(i, 1) for i in np.arange(0.1, 5., 0.2)]
+        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.005, 0.05)]
     
         for mua in self.mualist:
-            print("another one")
+            print(mua)
         
             counter = 0
         
             reflection = 0
         
-            with open("photonsmua" + str(mua) + ".csv", "r") as csvfile:
+            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
             
                 reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             
                 for row in reader:
-                    """
+                    
                     counter += 1
                 
                     if counter > 10000:
                         break
-                    """
+                    
                     if self.r - self.delta < float(row[1]) <= self.r + self.delta:
                     
                         reflection += float(row[2])

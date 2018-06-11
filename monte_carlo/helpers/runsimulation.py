@@ -5,8 +5,8 @@ each photon is measured. Based on algorithm chapter 5 of Optical-Thermal
 Response of Laser-Irradiated Tissue.
 """
 
-from classes.properties import Properties
-from classes.photon import Photon
+from classessimulation.properties import Properties
+from classessimulation.photon import Photon
 import helpers.absorption as absorption
 import random
 import math
