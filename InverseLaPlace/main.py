@@ -29,6 +29,14 @@ def main():
         prop.algorithm()
         
         prop.algorithmOutcome()
+        
+    if sys.argv[1] == "reflectance":
+        
+        prop.formula = "reflectance"
+        
+        prop.algorithm()
+        
+        prop.algorithmOutcome()
     
 if __name__ == "__main__":
     main()
