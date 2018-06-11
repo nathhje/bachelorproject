@@ -6,10 +6,10 @@ Created on Fri Jun  8 10:29:46 2018
 """
 
 import matplotlib.pyplot as plt
-import helpers.getFt
 from helpers.getPs import exponential
 from helpers.getPs import dataset
 from helpers.getPs import reflectance
+import helpers.getFt
 import numpy as np
 import csv
 

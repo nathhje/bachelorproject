@@ -2,7 +2,7 @@
 """
 Created on Tue May 29 10:29:46 2018
 
-@author: Gebruiker
+My laptop did: 1.4
 """
 
 import sys
