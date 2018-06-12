@@ -2,7 +2,7 @@
 """
 Created on Tue May 29 10:29:46 2018
 
-My laptop did: 1.4
+Not working: 0.35, 0.45, 0.55, 1.4
 """
 
 import sys 

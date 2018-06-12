@@ -53,7 +53,7 @@ class Properties:
         self.dz = self.zlim / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 5000000
+        self.N = 1000000
         self.Nt = 1000
         
         # Each bin saves the amount of weight that was absorped in range of that bin.
@@ -112,7 +112,7 @@ class Properties:
     def savePhotonsReflect(self, r, goneweight, photon, s1):
         
         # reflect or absorped, radius (probably cm), weight (starts with 1), path travelled (probably cm)
-        self.photonstates.append(['r', r,  goneweight, photon.path - s1])
+        self.photonstates.append([r,  goneweight, photon.path - s1])
         
     def RvsMua(self, mualist, Rlist):
         """ Generates a plot of R vs mua. """

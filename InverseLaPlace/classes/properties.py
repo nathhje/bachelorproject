@@ -18,7 +18,7 @@ class Properties:
     def __init__(self):
         
         self.N = 22
-        self.r = 1.
+        self.r = 0.3
         self.delta = 0.0005
         self.mualist = []
         self.reflections = []
@@ -96,31 +96,37 @@ class Properties:
             
     def retrieveData(self):
     
-        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.005, 0.05)]
-    
+        self.mualist = [round(i, 2) for i in np.arange(0.65, 10.005, 0.05)]
+        #self.mualist = [0.35]
         for mua in self.mualist:
             print(mua)
         
             counter = 0
         
             reflection = 0
-        
-            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
             
-                reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-            
-                for row in reader:
-                    
-                    counter += 1
+            if mua == 1.4:
+                print("invalid")
                 
-                    if counter > 10000:
-                        break
-                    
-                    if self.r - self.delta < float(row[1]) <= self.r + self.delta:
-                    
-                        reflection += float(row[2])
+            else:
         
-            self.reflections.append(reflection)
+                with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
+                    
+                    reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+                    
+                    for row in reader:
+                        print(row)
+                        """
+                        counter += 1
+                    
+                        if counter > 10000:
+                            break
+                        """
+                        if self.r - self.delta < float(row[1]) <= self.r + self.delta:
+                        
+                            reflection += float(row[2])
+            
+                self.reflections.append(reflection)
         
         plt.figure()
         plt.plot(self.mualist, self.reflections)
