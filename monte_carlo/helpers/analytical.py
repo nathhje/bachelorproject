@@ -64,9 +64,7 @@ class Properties:
         self.Rlist = []
     
         # All parameters used in calculation
-        self.a = self.muc / (self.mua + self.muc)
-        
-        self.ueff = self.mua * (3. / (1 - self.a)) ** 0.5
+        self.ueff = (3 * mua * (mua + self.muc)) ** 0.5
         self.rid = -1.44 * self.n ** -2 + 0.71 * self.n ** -1 + 0.67 + 0.0636 * self.n
         
         self.k = (1 + self.rid) / (1 - self.rid)

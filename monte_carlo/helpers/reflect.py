@@ -29,21 +29,24 @@ def reflect(photon, s, prop):
     
     # The velocity in the z-direction is reversed so the photon goes back.
     photon.uz = -1 * photon.uz
-    """
-    # The goniometric parameters are calculated that are used for determining 
-    # the part of the photon weight that will be reflected.
-    cost = photon.uz
-    sint = (1 - photon.uz ** 2) ** 0.5
-    sinf = sint * prop.n/prop.n1
-    cosf = (1 - sint **2) ** 0.5
     
-    # The fraction of the photon weight that continues propagating is determined.
-    Ri = (((sint * cosf - cost * sinf) ** 2) / 2) * (((cost * cosf + sint * sinf) 
-            ** 2 + (cost * cosf - sint * sinf) ** 2) / ((sint * cosf + cost * sinf) 
-            ** 2 * (cost * cosf + sint * sinf) ** 2))
-    """
-    Ri = 0
+    if photon.uz == 1.0:
+        Ri = 0
     
+    else:
+        # The goniometric parameters are calculated that are used for determining 
+        # the part of the photon weight that will be reflected.
+        cost = photon.uz
+        sint = (1 - photon.uz ** 2) ** 0.5
+        sinf = sint * prop.n/prop.n1
+        cosf = (1 - sint **2) ** 0.5
+        
+        # The fraction of the photon weight that continues propagating is determined.
+        Ri = (((sint * cosf - cost * sinf) ** 2) / 2) * (((cost * cosf + sint * sinf) 
+                ** 2 + (cost * cosf - sint * sinf) ** 2) / ((sint * cosf + cost * sinf) 
+                ** 2 * (cost * cosf + sint * sinf) ** 2))
+    
+    #Ri = 0
     # The radius from the source is determined
     r = (photon.x ** 2 + photon.y ** 2) ** 0.5
     

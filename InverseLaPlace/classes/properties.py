@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 from helpers.getPs import exponential
 from helpers.getPs import dataset
 from helpers.getPs import reflectance
-import helpers.getFt
+from helpers.getFt import exponential as exponentialFt
+from helpers.getFt import reflectance as reflectanceFt
 import numpy as np
 import csv
 
@@ -18,11 +19,14 @@ class Properties:
     def __init__(self):
         
         self.N = 22
+        
         self.r = 0.3
         self.delta = 0.0005
+        
         self.mualist = []
         self.reflections = []
         self.formula = ""
+        self.FtFormula = ""
         self.G = []
         self.H = []
         self.V = []
@@ -76,7 +80,7 @@ class Properties:
     
         function = globals()[self.formula]
     
-        for i in np.arange(0.5, 20.0, 0.01):
+        for i in np.arange(0.1, 3.0, 0.1):
             
             a = 0.69314 / i
             nextFa = 0
@@ -97,7 +101,6 @@ class Properties:
     def retrieveData(self):
     
         self.mualist = [round(i, 2) for i in np.arange(0.65, 10.005, 0.05)]
-        #self.mualist = [0.35]
         for mua in self.mualist:
             print(mua)
         
@@ -105,26 +108,21 @@ class Properties:
         
             reflection = 0
             
-            if mua == 1.4:
-                print("invalid")
-                
-            else:
-        
-                with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
+            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
                     
-                    reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+                reader = csv.reader(csvfile, delimiter=',', quotechar='"')
                     
-                    for row in reader:
-                        print(row)
-                        """
-                        counter += 1
+                for row in reader:
+                    print(row)
+                    """
+                    counter += 1
                     
-                        if counter > 10000:
-                            break
-                        """
-                        if self.r - self.delta < float(row[1]) <= self.r + self.delta:
+                    if counter > 10000:
+                        break
+                    """
+                    if self.r - self.delta < float(row[1]) <= self.r + self.delta:
                         
-                            reflection += float(row[2])
+                        reflection += float(row[2])
             
                 self.reflections.append(reflection)
         
@@ -144,13 +142,16 @@ class Properties:
         plt.show()
         
     def numVsAn(self):
+        
+        function = globals()[self.formula]
+        
         print(self.T)
         print(self.Fa)
         Ft = []
     
         for i in self.T:
         
-            Ft.append(helpers.getFt.exponential(i))
+            Ft.append(function(i, self))
         
         plt.figure()
         plt.plot(self.T, self.Fa)
