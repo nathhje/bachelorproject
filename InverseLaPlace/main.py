@@ -2,7 +2,6 @@
 """
 Created on Tue May 29 10:29:46 2018
 
-Not working: 0.35, 0.45, 0.55, 1.4
 """
 
 import sys 
@@ -16,6 +15,41 @@ def main():
         
         prop.formula = "exponential"
         prop.FtFormula = "exponentialFt"
+        
+        prop.algorithm()
+        
+        prop.numVsAn()
+        
+    if sys.argv[1] == "exponentialNum":
+        
+        prop.formula = "exponential"
+        prop.FtFormula = "exponentialFt"
+        
+        prop.createData()
+        
+        prop.formula = "dataset"
+        
+        prop.algorithm()
+        
+        prop.numVsAn()
+        
+    if sys.argv[1] == "cosine":
+        
+        prop.formula = "cosine"
+        prop.FtFormula = "cosineFt"
+        
+        prop.algorithm()
+        
+        prop.numVsAn()
+        
+    if sys.argv[1] == "cosineNum":
+        
+        prop.formula = "cosine"
+        prop.FtFormula = "cosineFt"
+        
+        prop.createData()
+        
+        prop.formula = "dataset"
         
         prop.algorithm()
         
@@ -35,6 +69,19 @@ def main():
         
         prop.formula = "reflectance"
         prop.FtFormula = "reflectanceFt"
+        
+        prop.algorithm()
+        
+        prop.numVsAn()
+        
+    if sys.argv[1] == "reflectanceNum":
+        
+        prop.formula = "reflectance"
+        prop.FtFormula = "reflectanceFt"
+        
+        prop.createData()
+        
+        prop.formula = "dataset"
         
         prop.algorithm()
         

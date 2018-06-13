@@ -12,6 +12,10 @@ def exponential(s, prop):
     
     return 1 / (s+1)
 
+def cosine(s, prop):
+    
+    return s / (s ** 2 + 1)
+
 def reflectance(s, prop):
     
     values = av.analyticalValues(prop.r, s)
@@ -22,7 +26,7 @@ def reflectance(s, prop):
 
 def dataset(s, prop):
     
-    index = s * 5 - 0.5
+    index = s * 10
     
     indexLow = int(index)
     indexHigh = int(round(index))

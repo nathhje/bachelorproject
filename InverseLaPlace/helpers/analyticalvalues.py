@@ -23,7 +23,7 @@ class analyticalValues:
         # All parameters used in calculation
         self.ueff = (3 * mua * (mua + self.muc)) ** 0.5
         self.rid = -1.44 * self.n ** -2 + 0.71 * self.n ** -1 + 0.67 + 0.0636 * self.n
-            
+        
         self.k = (1 + self.rid) / (1 - self.rid)
         self.D = (3 * (self.muc)) ** -1
             
