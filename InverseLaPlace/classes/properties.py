@@ -23,12 +23,13 @@ class Properties:
         
         self.N = 22
         
-        self.r = 0.5
+        self.r = 1.5
         self.delta = 0.01
         
         self.step = 0.1
         self.algar = 0.
         self.anaar = 0.
+        self.normalize = 1.85
         
         self.mualist = []
         self.reflections = []
@@ -39,6 +40,10 @@ class Properties:
         self.V = []
         self.T = []
         self.Fa = []
+        
+        self.Ps = []
+        self.moreref = []
+        self.s = []
         
         self.weights = []
         self.pathlengths = []
@@ -81,27 +86,22 @@ class Properties:
             self.V[i] *= sn
         
             sn = - sn
-            
-        print(self.G)
-        print(self.H)
-        print(self.V)
     
     def createF(self):
     
         function = globals()[self.formula]
     
-        for i in np.arange(0.1, 10., self.step):
+        for i in np.arange(0.1, 20., self.step):
             
             a = 0.69314 / i
             nextFa = 0
             
             for j in range(1, self.N+1):
-                #print("new")
+                
                 Ps = function(a * j, self)
                 if Ps < 0:
                     Ps = 0
-                #print(Ps)
-                #print(exponential(a*j, self))
+                    
                 nextFa += self.V[j] * Ps
         
             nextFa *= a
@@ -112,7 +112,7 @@ class Properties:
             
     def retrieveData(self):
     
-        self.mualist = [round(i, 1) for i in np.arange(0.0, 10.001, 0.1)]
+        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.001, 0.05)]
         for mua in self.mualist:
             print(mua)
         
@@ -140,6 +140,7 @@ class Properties:
                             self.pathlengths.append(float(row[2]))
             
                 self.reflections.append(reflection)
+                print(mua, reflection)
         
         AREA = math.pi * ((self.r + self.delta) ** 2 - (self.r - self.delta) ** 2)
         
@@ -159,13 +160,28 @@ class Properties:
         
         function = globals()[self.formula]
         
-        self.mualist = [round(i, 1) for i in np.arange(0.0, 40.001, 0.1)]
+        self.mualist = [round(i, 3) for i in np.arange(0.0, 40.001, 0.05)]
         
         for mua in self.mualist:
             
             reflection = function(mua, self)
             
             self.reflections.append(reflection)
+            
+            
+    def getAnalytical(self):
+            
+            function = globals()[self.FtFormula]
+            
+            self.Ft = []
+    
+            for i in self.T:
+            
+                nextFt = function(i, self)
+        
+                self.Ft.append(nextFt * self.normalize)
+            
+                self.anaar += self.step * nextFt
         
     def algorithmOutcome(self):
         
@@ -174,61 +190,39 @@ class Properties:
         plt.plot(self.T, self.Fa, 'bo')
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
         plt.xlabel("t")
-        plt.xlim(0., 5.)
         plt.ylabel("F")
-        plt.title("Harald Stefest's algorithm", y = 1.08)
+        plt.title("Path length distribution calculated from a dataset with Harald Stefest's algorithm", y = 1.08)
         plt.show()
         
         plt.figure()
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
-        plt.xlim(0., 5.)
         plt.show()
         
     def numVsAn(self):
         
-        function = globals()[self.FtFormula]
-        Psfunction = globals()[self.formula]
-        
-        mualist = [round(i,1) for i in np.arange(0.0, 10.01, 0.1)]
-        Ps = []
-        
-        for mua in mualist:
-            
-            Ps.append(Psfunction(mua, self))
-            
-        plt.figure()
-        plt.plot(mualist, Ps)
-        plt.xlabel('s')
-        plt.ylabel('P')
-        plt.title("Reflectance as a function of absorption coefficient")
-        plt.show()
-        
-        Ft = []
-    
-        for i in self.T:
-            
-            nextFt = function(i, self)
-        
-            Ft.append(nextFt)
-            
-            self.anaar += self.step * nextFt
-            
-        normalize = self.algar / self.anaar
-        
-        #for i in range(len(Ft)):
-        
-            #Ft[i] = Ft[i] * normalize
+        self.getAnalytical()
         
         plt.figure()
         #plt.plot(self.T, self.Fa)
-        plt.plot(self.T, self.Fa, 'bo')
-        plt.plot(self.T, Ft, 'r-')
+        plt.plot(self.T, self.Fa, 'ro')
+        #plt.plot(self.T, self.Ft, 'b-')
         #plt.plot(self.T, Ft, 'ro')
-        plt.xlabel("t")
-        plt.ylabel("F")
-        plt.title("Analytical solution of a function vs Harald Stefest's algorithm", y = 1.08)
+        plt.xlabel("distance (cm)")
+        plt.ylabel("frequency (cm^-2)")
+        plt.legend(("algorithm", "analytical"))
+        plt.title("Path length distribution calculated with Harald Stehfest's algorithm based on data points", y = 1.08)
         plt.show()
         
         print(self.algar)
         print(self.anaar)
-        print(normalize)
+        
+    def PsCompare(self):
+            
+        plt.figure()
+        plt.plot(self.s, self.moreref, 'bs')
+        plt.plot(self.s, self.Ps, 'r.')
+        plt.xlabel('mu_a (cm^-1)')
+        plt.ylabel('R (cm^-2)')
+        plt.legend(("exact", "from data points"))
+        plt.title("Analytical solution for for reflectance as a function of absorption coefficient")
+        plt.show()

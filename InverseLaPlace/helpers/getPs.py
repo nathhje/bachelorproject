@@ -7,10 +7,18 @@ Created on Fri Jun  1 09:45:50 2018
 
 import math
 import helpers.analyticalvalues as av
+import random
 
 def exponential(s, prop):
     
-    return 1 / (s+1)
+    P = 1 / (s+1)
+    Pd = P #* (random.random()* 21./110. + 10./11.)
+    
+    prop.s.append(s)
+    prop.moreref.append(P)
+    prop.Ps.append(Pd)
+    
+    return Pd
 
 def cosine(s, prop):
     
@@ -25,11 +33,16 @@ def reflectance(s, prop):
             * math.exp( -values.ueff * values.rho2) / (values.rho2 ** 2)) / 4 / math.pi
 
 def dataset(s, prop):
+    #print("dataset")
     
-    index = s * 10
+    index = s * 20
     
     indexLow = int(index)
     indexHigh = int(round(index))
+    
+    #print(index)
+    #print(indexLow)
+    #print(indexHigh)
     
     if indexLow < 0:
         indexLow = 0
@@ -41,4 +54,18 @@ def dataset(s, prop):
     
     a = (prop.reflections[indexHigh] - prop.reflections[indexLow]) / 0.2
     
-    return prop.reflections[indexLow] + a * (s - prop.mualist[indexLow])
+    #print(prop.reflections[indexLow])
+    #print(prop.reflections[indexHigh])
+    
+    P = prop.reflections[indexLow] + a * (s - prop.mualist[indexLow])
+    
+    if s < 5:
+        
+        prop.s.append(s)
+        prop.moreref.append(reflectance(s, prop))
+        prop.Ps.append(P)
+    
+    if s > 80:
+        print(s, P, reflectance(s,prop))
+    
+    return P
