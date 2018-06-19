@@ -8,10 +8,11 @@ Created on Thu Jun  7 14:44:48 2018
 import helpers.runsimulation as run
 import numpy as np
 import matplotlib.pyplot as plt
+import helpers.getPs as Ps
 
 def Rvsr():
     
-    mua = 0.1
+    mua = 10.
     prop = run.runSimulation(mua, 0.0, "Rvsr")
     
     prop.RvsrOutput(mua)
@@ -21,8 +22,9 @@ def RvsMua():
     r = 0.3
     mualist = []
     Rlist = []
+    analist = []
     
-    for mua in np.arange(0.1, 1.5, 0.2):
+    for mua in np.arange(0.1, 7, 0.4):
         
         mua = round(mua,1)
         print(mua)
@@ -31,9 +33,13 @@ def RvsMua():
     
         prop = run.runSimulation(mua, r, "RvsMua")
         
+        thisPs = Ps.reflectance(mua, prop)
+        
+        analist.append(thisPs)
+        
         Rlist.append(prop.Rr)
         
-    prop.RvsMua(mualist, Rlist)
+    prop.RvsMua(mualist, Rlist, analist)
     
 def savePhotons():
     

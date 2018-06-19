@@ -53,7 +53,7 @@ class Properties:
         self.dz = self.zlim / self.BINS
         
         # The number of photons emitted and the number of photons running at once.
-        self.N = 1000000
+        self.N = 100000
         self.Nt = 1000
         
         # Each bin saves the amount of weight that was absorped in range of that bin.
@@ -114,7 +114,7 @@ class Properties:
         # reflect or absorped, radius (probably cm), weight (starts with 1), path travelled (probably cm)
         self.photonstates.append([r,  goneweight, photon.path - s1])
         
-    def RvsMua(self, mualist, Rlist):
+    def RvsMua(self, mualist, Rlist, analist):
         """ Generates a plot of R vs mua. """
         
         # The reflectances are normalized
@@ -123,10 +123,14 @@ class Properties:
         for R in Rlist:
             
             R = R / (AREA * self.N)
+            
+        print(Rlist)
+        print(analist)
     
         # Plot combining R vs r of analytical solution and simulation.
         plt.figure()
         plt.plot(mualist, Rlist, 'go')
+        plt.plot(mualist, analist)
         plt.title("Reflectance as a function of absorption coefficient")
         plt.xlabel("mu_a (cm^-1)")
         plt.ylabel("photons / mm^2")

@@ -23,7 +23,7 @@ class Properties:
         
         self.N = 22
         
-        self.r = 1.5
+        self.r = 0.5
         self.delta = 0.01
         
         self.step = 0.1
@@ -112,7 +112,7 @@ class Properties:
             
     def retrieveData(self):
     
-        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.001, 0.05)]
+        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.001, 0.1)]
         for mua in self.mualist:
             print(mua)
         
@@ -152,6 +152,9 @@ class Properties:
             self.weights[i] = self.pathlengths[i] / 1000000
             
         plt.figure()
+        plt.title("Reflectance as a function of absorption coefficient calculated from the dataset")
+        plt.xlabel("mu_a (cm^-1)")
+        plt.ylabel("R (cm^-2)")
         plt.plot(self.mualist, self.reflections)
         #plt.plot(mualist, reflections, 'bo')
         plt.show()
@@ -186,15 +189,18 @@ class Properties:
     def algorithmOutcome(self):
         
         plt.figure()
-        plt.plot(self.T, self.Fa)
+        #plt.plot(self.T, self.Fa)
         plt.plot(self.T, self.Fa, 'bo')
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
-        plt.xlabel("t")
-        plt.ylabel("F")
+        plt.xlabel("distance (cm)")
+        plt.ylabel("frequency (cm^-2")
         plt.title("Path length distribution calculated from a dataset with Harald Stefest's algorithm", y = 1.08)
         plt.show()
         
         plt.figure()
+        plt.title("Path length distribution at mu_a=0cm^-1 calculated from the dataset")
+        plt.xlabel("distance (cm)")
+        plt.ylabel("frequency (cm^-2)")
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
         plt.show()
         
@@ -223,6 +229,6 @@ class Properties:
         plt.plot(self.s, self.Ps, 'r.')
         plt.xlabel('mu_a (cm^-1)')
         plt.ylabel('R (cm^-2)')
-        plt.legend(("exact", "from data points"))
-        plt.title("Analytical solution for for reflectance as a function of absorption coefficient")
+        #plt.legend(("exact", "from data points"))
+        plt.title("Solution from the dataset for reflectance as a function of absorption coefficient")
         plt.show()

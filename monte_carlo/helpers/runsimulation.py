@@ -36,9 +36,9 @@ def runSimulation(mua, r, name):
             photon.change_position(s, prop)
             absorption.bins(photon, prop)
             absorption.direction(photon, prop)
-        
+            
             # It is decided if the photon is terminated.
-            if photon.weight < prop.TRESHOLD:
+            if photon.weight.real < prop.TRESHOLD:
                 
                 # The photons weight is increased and it continues propagating.
                 if random.random() <= prop.CHANCE:

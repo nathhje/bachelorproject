@@ -60,7 +60,6 @@ def main():
         
         prop.algorithm()
         
-        prop.PsCompare()
         prop.numVsAn()
         
     if sys.argv[1] == "dataset":
