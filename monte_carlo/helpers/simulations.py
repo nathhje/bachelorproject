@@ -47,7 +47,7 @@ def savePhotons():
     mualist = []
     Rlist = []
     
-    for mua in np.arange(1.9, 10.01, 0.1):
+    for mua in np.arange(6.55, 10.01, 0.05):
         
         mua = round(mua,2)
         print(mua)

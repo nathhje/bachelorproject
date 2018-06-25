@@ -43,7 +43,7 @@ def direction(photon, prop):
             uzz = - costh
         
         # For proper normalization
-        total = abs(uxx) + abs(uyy) + abs(uzz)
+        total = uxx ** 2 + uyy ** 2 + uzz ** 2
         
         uxx = uxx / total
         uyy = uyy / total

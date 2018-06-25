@@ -24,6 +24,31 @@ def cosine(s, prop):
     
     return s / (s ** 2 + 1)
 
+def exponent(s, prop):
+    
+    P = 0.019892974 * math.e ** (-0.651220312*s)
+    
+    prop.s.append(s)
+    prop.Ps.append(P)
+    
+    return P
+
+def polynomial(s, prop):
+    
+    constants = [-5.43079E-08,	2.63248E-06,	-5.41409E-05,	0.00061561,	-0.004227447,	0.017989602,	-0.046860681,	0.071184663,	-0.056953756,	0.018767629]
+   
+    poly = len(constants)
+    
+    P = 0
+    
+    for i in range(poly):
+        
+        P += constants[i] * s ** (poly-1-i)
+    
+    prop.s.append(s)
+    prop.Ps.append(P)
+    return P
+
 def reflectance(s, prop):
     
     values = av.analyticalValues(prop.r, s)
@@ -62,7 +87,7 @@ def dataset(s, prop):
     if s < 10000000:
         
         prop.s.append(s)
-        #prop.moreref.append(reflectance(s, prop))
+        prop.moreref.append(exponential(s, prop))
         prop.Ps.append(P)
 
     return P

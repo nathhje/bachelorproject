@@ -10,6 +10,8 @@ from helpers.getPs import exponential
 from helpers.getPs import cosine
 from helpers.getPs import dataset
 from helpers.getPs import reflectance
+from helpers.getPs import polynomial
+from helpers.getPs import exponent
 from helpers.getFt import exponential as exponentialFt
 from helpers.getFt import cosine as cosineFt
 from helpers.getFt import reflectance as reflectanceFt
@@ -23,8 +25,9 @@ class Properties:
         
         self.N = 22
         
-        self.r = 0.5
-        self.delta = 0.01
+        self.r = 1.
+        
+        self.delta = 0.1
         
         self.step = 0.1
         self.algar = 0.
@@ -111,8 +114,8 @@ class Properties:
             self.algar += self.step * nextFa
             
     def retrieveData(self):
-    
-        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.001, 0.1)]
+        
+        self.mualist = [round(i, 2) for i in np.arange(0.0, 10.001, 0.05)]
         for mua in self.mualist:
             print(mua)
         
@@ -120,17 +123,17 @@ class Properties:
         
             reflection = 0
             
-            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
+            with open("data\\photonsmua" + str(mua) + ".csv", "r") as csvfile:
                     
                 reader = csv.reader(csvfile, delimiter=',', quotechar='"')
                     
                 for row in reader:
-                    """
+                    '''
                     counter += 1
                     
                     if counter > 10000:
                         break
-                    """
+                    '''
                     if self.r - self.delta < float(row[0]) <= self.r + self.delta:
                         
                         reflection += float(row[1])
@@ -152,10 +155,11 @@ class Properties:
             self.weights[i] = self.pathlengths[i] / 1000000
             
         plt.figure()
-        plt.title("Reflectance as a function of absorption coefficient calculated from the dataset")
-        plt.xlabel("mu_a (cm^-1)")
-        plt.ylabel("R (cm^-2)")
+        plt.title(r"Reflectance as a function of absorption coefficient at $r=1cm$")
+        plt.xlabel(r"$\mu_a (cm^{-1})$")
+        plt.ylabel(r"$R (cm^{-2})$")
         plt.plot(self.mualist, self.reflections)
+        plt.legend(["directly from data set"])
         #plt.plot(mualist, reflections, 'bo')
         plt.show()
         
@@ -192,16 +196,28 @@ class Properties:
         #plt.plot(self.T, self.Fa)
         plt.plot(self.T, self.Fa, 'bo')
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
-        plt.xlabel("distance (cm)")
-        plt.ylabel("frequency (cm^-2")
-        plt.title("Path length distribution calculated from a dataset with Harald Stefest's algorithm", y = 1.08)
+        plt.xlabel(r"$r (cm)$")
+        plt.ylabel(r"frequency $(cm^-{2})$")
+        plt.title(r"Path length distribution at $r=1cm$")
+        plt.legend(["algorithm used on dataset"])
         plt.show()
         
         plt.figure()
-        plt.title("Path length distribution at mu_a=0cm^-1 calculated from the dataset")
-        plt.xlabel("distance (cm)")
-        plt.ylabel("frequency (cm^-2)")
+        plt.title(r"Path length distribution at $r=1cm$")
+        plt.xlabel(r"$r (cm)$")
+        plt.ylabel(r"frequency $(cm^-{2})$")
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
+        plt.legend(["directly from data set"])
+        plt.show()
+        
+    def algorithmOnlyOutcome(self):
+        
+        plt.figure()
+        plt.plot(self.T, self.Fa, 'bo' )
+        plt.xlabel(r"$r (cm)$")
+        plt.ylabel(r"frequency $(cm^{-2})$")
+        plt.title(r"Path length distribution at $r=1cm$")
+        plt.legend(["algorithm used on a fit of the data set"])
         plt.show()
         
     def numVsAn(self):
@@ -213,10 +229,10 @@ class Properties:
         plt.plot(self.T, self.Fa, 'ro')
         #plt.plot(self.T, self.Ft, 'b-')
         #plt.plot(self.T, Ft, 'ro')
-        plt.xlabel("distance (cm)")
-        plt.ylabel("frequency (cm^-2)")
-        plt.legend(("algorithm", "analytical"))
-        plt.title("Path length distribution calculated with Harald Stehfest's algorithm based on data points", y = 1.08)
+        plt.xlabel(r"$t$")
+        plt.ylabel(r"$F$")
+        plt.title(r"Exponential function")
+        plt.legend(["random deviation in algorithm", "analytical"])
         plt.show()
         
         print(self.algar)
@@ -227,8 +243,8 @@ class Properties:
         plt.figure()
         plt.plot(self.s, self.moreref, 'bs')
         plt.plot(self.s, self.Ps, 'r.')
-        plt.xlabel('mu_a (cm^-1)')
-        plt.ylabel('R (cm^-2)')
-        #plt.legend(("exact", "from data points"))
-        plt.title("Solution from the dataset for reflectance as a function of absorption coefficient")
+        plt.xlabel(r'$s$')
+        plt.ylabel(r'$P$')
+        plt.legend(("exact", "random deviation"))
+        plt.title(r"Laplace transform of an exponential function")
         plt.show()

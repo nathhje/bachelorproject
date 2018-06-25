@@ -7,6 +7,7 @@ Created on Tue May 29 10:29:46 2018
 import sys 
 import classes.properties as properties
 import numpy as np
+import helpers.fitsave as fs
 
 def main():
     
@@ -61,6 +62,26 @@ def main():
         prop.algorithm()
         
         prop.numVsAn()
+        
+    if sys.argv[1] == "exponent":
+        
+        prop.formula = "exponent"
+        prop.normalize = 1
+        
+        prop.algorithm()
+        
+        prop.PsCompare()
+        prop.algorithmOnlyOutcome()
+        
+    if sys.argv[1] == "polynomial":
+        
+        prop.formula = "polynomial"
+        prop.normalize = 1
+        
+        prop.algorithm()
+        
+        prop.PsCompare()
+        prop.algorithmOnlyOutcome()
         
     if sys.argv[1] == "dataset":
         
@@ -118,6 +139,10 @@ def main():
             print(r, normalize)
             
             prop = properties.Properties()
+            
+    if sys.argv[1] == "saveForFit":
+        
+        fs.fitSave(prop)
     
 if __name__ == "__main__":
     main()
