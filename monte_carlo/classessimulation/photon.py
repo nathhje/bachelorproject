@@ -1,8 +1,7 @@
 """
-12 April 2018 by Nathalie van Sterkenburg.
 Contains a class for a photon. The class keeps track of the photon position,
-direction and speed as well as it's weight and pathlength and number of times
-reflected. Also has a function for updating the position.
+direction and speed as well as it's weight and path lengths. Also has a 
+function for updating the position.
 """
 
 from helpers.reflect import reflect
@@ -22,7 +21,7 @@ class Photon:
         self.uy = 0.
         self.uz = 1.
         
-        # Photon weight, covered pathlength and number of times reflected.
+        # Photon weight and covered path length
         self.weight = 1.
         self.path = 0.
     

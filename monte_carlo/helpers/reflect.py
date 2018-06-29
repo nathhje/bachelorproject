@@ -1,16 +1,16 @@
 """
-12 April 2018 by Nathalie van Sterkenburg.
 Contains a function that reflects a photon when it crosses the boundary. Part
 of the weight is let through and saved as radial reflectance, the rest is send 
 back into the tissue to continue propagating.
 """
 
-import math
-
 def reflect(photon, s, prop):
     """ 
-    Reflects a photon against the boundary. s is length of the previous step the
-    photon has taken.
+    Reflects a photon against the boundary.
+    
+    photon: the instance of the absorbed photon.
+    s: length of the previous step the photon has taken.
+    prop: contains all constants, methods of saving and outputs.
     """
     
     # The photon has already taken a step to cross the boundary, so it now has
@@ -46,15 +46,16 @@ def reflect(photon, s, prop):
                 ** 2 + (cost * cosf - sint * sinf) ** 2) / ((sint * cosf + cost * sinf) 
                 ** 2 * (cost * cosf + sint * sinf) ** 2))
     
-    #Ri = 0
     # The radius from the source is determined
     r = (photon.x ** 2 + photon.y ** 2) ** 0.5
     
+    # The weight that is let through
     goneweight = (1 - Ri) * photon.weight
     
+    # How the removed weight is stored depents on how he simulation is run
     if prop.name == "Rvsr":
         
-        prop.RvsrReflect(r, Ri, photon)
+        prop.RvsrReflect(r, goneweight)
         
     elif prop.name == "RvsMua":
         

@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jun  7 14:44:48 2018
-
-@author: Gebruiker
+Runs the simulation with the right variables and handles output.
 """
 
 import helpers.runsimulation as run
 import numpy as np
 import matplotlib.pyplot as plt
-import helpers.getPs as Ps
+import helpers.muaanalytical as muaAna
 
 def Rvsr():
+    """ Runs the simulation once for a given mua. """
     
     mua = 10.
     prop = run.runSimulation(mua, 0.0, "Rvsr")
@@ -18,6 +17,9 @@ def Rvsr():
     prop.RvsrOutput(mua)
     
 def RvsMua():
+    """ Runs the simulation for a range of mua and keeps track of reflectance
+    at a certain r. 
+    """ 
     
     r = 0.3
     mualist = []
@@ -28,40 +30,38 @@ def RvsMua():
         
         mua = round(mua,1)
         print(mua)
-        
-        mualist.append(mua)
     
+        # Running simulation
         prop = run.runSimulation(mua, r, "RvsMua")
         
-        thisPs = Ps.reflectance(mua, prop)
+        # Analytical solution for comparison
+        anaMua = muaAna.reflectance(mua, r)
         
-        analist.append(thisPs)
-        
+        mualist.append(mua)
+        analist.append(anaMua)
         Rlist.append(prop.Rr)
         
     prop.RvsMua(mualist, Rlist, analist)
     
 def savePhotons():
+    """ Runs the simulation and saves reflections to a csv file. """
     
     r = 0.3
-    mualist = []
-    Rlist = []
     
     for mua in np.arange(6.55, 10.01, 0.05):
         
         mua = round(mua,2)
         print(mua)
-        
-        mualist.append(mua)
     
-        prop = run.runSimulation(mua, r, "savePhotons")
-        
-        Rlist.append(prop.R)
+        run.runSimulation(mua, r, "savePhotons")
         
 def RvsrThree():
+    """ Runs the simulation for three different mua and plots all R vs r
+    together. """
     
     r = 0.
     
+    # The simulations are run and right outputs generated
     prop = run.runSimulation(0.1, r, "Rvsr")
     ir_list1, T1 = prop.RvsrOutput(0.1)
     prop = run.runSimulation(1., r, "Rvsr")
@@ -69,6 +69,7 @@ def RvsrThree():
     prop = run.runSimulation(2., r, "Rvsr")
     ir_list3, T3 = prop.RvsrOutput(2.)
     
+    # The plot of all three is made
     plt.figure()
     plt.plot(ir_list1, T1, 'bo')
     plt.plot(ir_list2, T2, 'go')

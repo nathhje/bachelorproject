@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 11 15:11:23 2018
-
-@author: navansterkenburg
+Contains all paremeters used to determine the analytical solution.
 """
 
 class analyticalValues:
     
     def __init__(self, r, mua):
     
-        #self.mus = 10.
         self.g = 0.8
-        #self.muc = (1 - self.g) * self.mus
         self.muc = 10.
         self.mus = self.muc / (1 - self.g)
             

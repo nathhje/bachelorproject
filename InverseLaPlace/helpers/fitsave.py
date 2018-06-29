@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 10:58:25 2018
-
-@author: Gebruiker
+Retrieves lists for reflectance and absorption coefficient for a certain radial
+distance from the data set and saves these lists to an excel file.
 """
 
 import xlwt
 
 def fitSave(prop):
     
+    # Retrieve the lists
     prop.retrieveData()
     
+    # Make the excel file
     book = xlwt.Workbook(encoding="utf-8")
     sheet1 = book.add_sheet("Sheet 1")
     
