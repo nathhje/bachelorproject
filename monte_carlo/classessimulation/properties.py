@@ -55,7 +55,7 @@ class Properties:
         self.dz = self.zlim / self.BINS
         
         # The number of photons emitted and the number of photons running at once
-        self.N = 1000
+        self.N = 1000000
         self.Nt = 1000
         
         # Each bin saves the amount of weight that was absorped in range of that bin
@@ -223,7 +223,7 @@ class Properties:
         plt.yscale("log")
         plt.xlim(0.01, 0.35)
         plt.ylim(10**-2, 10**2)
-        plt.title(r"Reflectance as a function of radius at $\mu_a=10cm^{-1}$")
+        plt.title(r"Reflectance as a function of radius at $\mu_a=5cm^{-1}$")
         plt.xlabel(r"$r (cm)$")
         plt.ylabel(r"$R (cm^{-2})$")
         plt.legend(("simulation", "analytical"))

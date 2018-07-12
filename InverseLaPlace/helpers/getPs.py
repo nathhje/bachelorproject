@@ -98,11 +98,11 @@ def dataset(s, prop):
     """ Determines the right value of P(s) from a discrete set of points. """
     
     # index will be a float in between two real indices
-    index = s * prop.deltamua
+    index = s / prop.deltamua
     
     # These indices are determined
     indexLow = int(index)
-    indexHigh = int(round(index))
+    indexHigh = int(index) + 1
     
     # It is checked if these indices are within the range of mualist
     # If not, the two closest points are extrapolated
@@ -118,7 +118,7 @@ def dataset(s, prop):
     a = (prop.reflections[indexHigh] - prop.reflections[indexLow]) / 0.2
     
     # The value of P(s)
-    P = prop.reflections[indexLow] + a * (s - prop.mualist[indexLow])
+    P = prop.reflections[indexLow] + a * (s - indexLow * prop.deltamua)
     
     # If the data points are derived from the Laplace transform of the
     # exponential function or the reflectance vs absorption coefficient,

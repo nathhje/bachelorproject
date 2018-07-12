@@ -48,7 +48,7 @@ def savePhotons():
     
     r = 0.3
     
-    for mua in np.arange(6.55, 10.01, 0.05):
+    for mua in np.arange(0.35, 0.351, 0.05):
         
         mua = round(mua,2)
         print(mua)

@@ -143,7 +143,7 @@ class Properties:
         function = globals()[self.formula]
     
         # Loops through all F(T)
-        for i in np.arange(0.1, 20., self.step):
+        for i in np.arange(0.01, 20., self.step):
             
             a = 0.69314 / i
             nextFa = 0
@@ -174,7 +174,7 @@ class Properties:
             print(mua)
         
             # For each mua the corresponding file is opened and searched
-            with open("data\\photonsmua" + str(mua) + ".csv", "r") as csvfile:
+            with open("data\\photonsformua" + str(mua) + ".csv", "r") as csvfile:
                     
                 reflection = 0
                 
@@ -191,7 +191,7 @@ class Properties:
                         
                         # the path length distribution can be gained from the
                         # mua=0 file
-                        if mua == 0.0:
+                        if mua == 0.0 and float(row[2]) < 40.:
                             self.weights.append(float(row[1]))
                             self.pathlengths.append(float(row[2]))
             
@@ -205,13 +205,14 @@ class Properties:
             self.reflections[i] = self.reflections[i] / (AREA * 1000000)
             
         for i in range(len(self.weights)):
-            self.weights[i] = self.pathlengths[i] / 1000000
+            self.weights[i] = self.weights[i] / 1000000
             
         # The path length distribution from the data set is plotted
         plt.figure()
         plt.title(r"Reflectance as a function of absorption coefficient at $r=1cm$")
         plt.xlabel(r"$\mu_a (cm^{-1})$")
         plt.ylabel(r"$R (cm^{-2})$")
+        plt.yscale('log')
         plt.plot(self.mualist, self.reflections)
         plt.legend(["directly from data set"])
         plt.show()
@@ -232,6 +233,15 @@ class Properties:
             reflection = function(mua, self)
             
             self.reflections.append(reflection)
+            
+        plt.figure()
+        plt.title(r"Reflectance as a function of absorption coefficient at $r=1cm$")
+        plt.xlabel(r"$\mu_a (cm^{-1})$")
+        plt.ylabel(r"$R (cm^{-2})$")
+        plt.yscale('log')
+        plt.plot(self.mualist, self.reflections)
+        plt.legend(["directly from data set"])
+        plt.show()
             
             
     def getAnalytical(self):
@@ -262,17 +272,19 @@ class Properties:
         # The outcome of the algorithm
         plt.figure()
         plt.plot(self.T, self.Fa, 'bo')
-        plt.xlabel(r"t")
-        plt.ylabel(r"F")
-        plt.title(r"The inverse Laplace transform")
+        plt.xlabel(r"$l(cm)$")
+        plt.ylabel(r"$p(l)$")
+        plt.title(r"Path length distribution at $r=1cm$")
+        plt.legend(["algorithm used on dataset"])
         plt.show()
         
         # A histogram of the path length distribution from the data set
         plt.figure()
-        plt.title(r"The path length distribution$")
-        plt.xlabel(r"t")
-        plt.ylabel(r"F")
+        plt.xlabel(r"$l(cm)$")
+        plt.ylabel(r"$p(l)$")
+        plt.title(r"Path length distribution at $r=1cm$")
         plt.hist(self.pathlengths, bins = 100, weights = self.weights, color = 'r')
+        plt.legend(["directly from dataset"])
         plt.show()
         
     def algorithmOnlyOutcome(self):
@@ -295,11 +307,11 @@ class Properties:
         # Both functions are plotted in the same figure
         plt.figure()
         plt.plot(self.T, self.Fa, 'ro')
-        plt.plot(self.T, self.Ft, 'b-')
-        plt.xlabel(r"t")
-        plt.ylabel(r"F")
-        plt.title(r"The inverse Laplace transform")
-        plt.legend(["not exact", "exact"])
+        #plt.plot(self.T, self.Ft, 'b-')
+        plt.xlabel(r"$t$")
+        plt.ylabel(r"$F$")
+        plt.title(r"Exponential function")
+        plt.legend(["random deviation in algorithm"])
         plt.show()
         
     def PsCompare(self):
@@ -310,10 +322,11 @@ class Properties:
         plt.figure()
         plt.plot(self.s, self.moreref, 'bs')
         plt.plot(self.s, self.Ps, 'r.')
-        plt.xlabel(r's')
-        plt.ylabel(r'P')
-        plt.legend(("exact", "not exact"))
-        plt.title(r"Original function")
+        plt.xlabel(r'$s$')
+        plt.ylabel(r'$P$')
+        plt.legend(("exact", "random deviation"))
+        plt.title(r"Laplace transform of an exponential function")
+        plt.yscale('log')
         plt.show()
         
     def PsOnly(self):
@@ -322,7 +335,9 @@ class Properties:
         
         plt.figure()
         plt.plot(self.s, self.Ps, 'r.')
-        plt.xlabel(r's')
-        plt.ylabel(r'P')
-        plt.title(r"Original function")
+        plt.xlabel(r'$s$')
+        plt.ylabel(r'$P$')
+        plt.title(r"Laplace transform of an exponential function")
+        plt.legend(("exact", "interpolation"))
+        plt.yscale('log')
         plt.show()

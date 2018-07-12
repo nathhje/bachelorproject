@@ -28,14 +28,12 @@ def direction(photon, prop):
     prop: contains all constants, methods of saving and outputs.
     """
     
-    rand = random.random()
-    
     # All necessary goniometric expressions are calculated
     costh = (1 + prop.g**2 - ((1 - prop.g**2) / 
-            (1 - prop.g + 2 * prop.g * rand)) ** 2) / (2 * prop.g)
+            (1 - prop.g + 2 * prop.g * random.random())) ** 2) / (2 * prop.g)
     sinth  = (1 - costh ** 2) ** 0.5
     temp = (1 - photon.uz ** 2) ** 0.5
-    phi = 2 * math.pi * rand
+    phi = 2 * math.pi * random.random()
     cosph = math.cos(phi)
     sinph = math.sin(phi)
     

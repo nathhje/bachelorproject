@@ -6,7 +6,7 @@ suggested by Harald Stehfest.
 """
 
 import sys 
-import classes.properties as properties
+import classes.property as properties
 import numpy as np
 import helpers.fitsave as fs
 
@@ -38,7 +38,7 @@ def main():
         
         prop.algorithm()
         
-        prop.PsOnly()
+        prop.PsCompare()
         prop.numVsAn()
         
     # Uses the algorithm on a function that has an exponential outcome, but Ps
@@ -52,7 +52,7 @@ def main():
         
         prop.algorithm()
         
-        prop.PsOnly()
+        prop.PsCompare()
         prop.numVsAn()
     
     # Uses the algorithm on a function that has an exponential outcome, but Ps
