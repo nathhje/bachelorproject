@@ -1,5 +1,5 @@
 ## Code
-The code uses an algorithm to calculate the inverse Laplace transform of the input signal.
+The code uses an algorithm to calculate the inverse Laplace transform of the input signal. Most constants can be changed in the init of classes/property.py, other constants in helpers/analyticalvalues.py.
 
 ## Usage
 The code should be called from this directory using the format "python main.py INPUTSIGNAL". INPUTSINGAL can be chosen from this list:
