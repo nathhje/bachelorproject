@@ -1,5 +1,5 @@
 ## Code
-The code simulates photons moving through tissue. Constants can be changed in  the __init__ of classessimulation/properties.py. What each type of call does can be changed in helpers/simulations.py.
+The code simulates photons moving through tissue. Constants can be changed in  the init of classessimulation/properties.py. What each type of call does can be changed in helpers/simulations.py.
 
 ## Usage
 The code should be called from this directory using the format "python main.py TYPEOFRUN". TYPEOFRUN can be chosen from this list:
